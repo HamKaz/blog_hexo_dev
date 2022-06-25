@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+
+    <title>プログラミングエディタ Atom - hamkazの技術ブログ</title>
+
+    
+        <meta name="description" content="プログラミングエディタAtomを、Linux Debian10にインストールしました。インストールに必要な手順を解説するとともに、Chrome・npmをインストールすると起動不具合の回避方法についても調べてみました。">
+    
+
+    
+        <meta name="author" content="HamKaz">
+    
+
+    
+        <meta property="og:title" content="プログラミングエディタ Atom"/>
+    
+
+    <meta property="og:site_name" content="hamkazの技術ブログ"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="/css/styles.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <div class="container">
+    <header class="navbar navbar-light pt-3">
+        <a class="navbar-brand navbar-toggleable-sm" href="/">
+            <span class="title d-none d-sm-block">hamkazの技術ブログ</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center mt-3 mt-md-0" id="navbarCollapse">
+            <span class="title d-block d-sm-none">hamkazの技術ブログ</span>
+            <ul class="navbar-nav ml-auto my-auto">
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                
+            </ul>
+            <hr class="hidden-md-up" />
+        </div>
+    </header>
+</div>
+
+        <div class="container">
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-0 my-0 px-0">
+                    <main class="card mx-2 my-2 sidebar-sticky">
+                        <div class="row mx-3 mt-3 mb-0">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 mx-auto mx-0 my-0 px-0">
+        <div class="flex">
+    <div class="flex-item">
+        <figure class="image-trim mb-0">
+            
+                
+                    <img src="/images/atom.png" alt="プログラミングエディタ Atom">
+                
+            
+        </figure>
+    </div>
+</div>
+    </div>
+</div>
+<div class="row mx-auto mx-3 my-0">
+    
+
+
+    <p class="h4 text-center text-md-left mx-0 mt-3 mb-0">
+        プログラミングエディタ Atom
+    </p>
+
+
+</div>
+<div class="row mx-auto mx-3 mt-2 mb-0">
+    
+    <p class="date mx-3 my-0">
+        2020-05-16
+    </p>
+
+
+</div>
+<nav class="row mx-auto mx-3 mt-2 mb-0">
+    
+
+<ul class="mx-0 my-0">
+    <li>
+        
+            <a href="/" target="_self">
+                <i class="fa fa-home"></i>
+                home
+            </a>
+        
+            <a href="/categories/1-LinuxとNodejsでプログラミング/" target="_self">
+                <i class=""></i>
+                1-LinuxとNodejsでプログラミング
+            </a>
+        
+            <a href="/categories/1-LinuxとNodejsでプログラミング/a-ツールをインストールする/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                a-ツールをインストールする
+            </a>
+        
+    </li>
+</ul>
+
+</nav>
+
+<div class="mx-3 my-0">
+    <hr>
+</div>
+
+
+<div class="mx-3 my-0">
+    <h2 id="プログラミングエディタ-Atom"><a href="#プログラミングエディタ-Atom" class="headerlink" title="プログラミングエディタ - Atom"></a>プログラミングエディタ - Atom</h2><p>Atomは、Windows, Mac, Linuxのプラットフォーム上で使用できるプログラミングエディタで、GitHubにより開発されました。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://atom.io/">Atom公式ページ（英語）</a></p>
+</blockquote>
+<p>日本語パッケージをクリック一つでインストールできるなど、便利なパッケージがたくさんあり、用途に応じて様々なカスタマイズが可能です。インストール手順について、公式ページのリンクをご紹介します。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://flight-manual.atom.io/getting-started/sections/installing-atom/">Atom公式ページ（英語）</a></p>
+</blockquote>
+<p>コマンドラインからインストールしました。</p>
+<h3 id="エディタ-Atom-Editor-Visual-Studio-Code-Typora"><a href="#エディタ-Atom-Editor-Visual-Studio-Code-Typora" class="headerlink" title="エディタ - Atom Editor, Visual Studio Code, Typora"></a>エディタ - Atom Editor, Visual Studio Code, Typora</h3><p><strong>Atom Editor</strong></p>
+<p><code>aptインストール : wget, apt-key, sh, apt-get update, apt-get install</code></p>
+<h2 id="インストールに必要なコマンド"><a href="#インストールに必要なコマンド" class="headerlink" title="インストールに必要なコマンド"></a>インストールに必要なコマンド</h2><p>wget、apt-key、sh、apt-get update、apt-get install</p>
+<h2 id="インストール手順"><a href="#インストール手順" class="headerlink" title="インストール手順"></a>インストール手順</h2><p>インストール手順はsu権限で、次のように実行します。</p>
+<ol>
+<li>wgetのインストール</li>
+<li>認証キーの取得</li>
+<li>認証キーをリポジトリに追加</li>
+<li>リポジトリを更新</li>
+<li>Atomのインストール</li>
+</ol>
+<h2 id="インストール方法"><a href="#インストール方法" class="headerlink" title="インストール方法"></a>インストール方法</h2><h3 id="1-wgetコマンドのインストール"><a href="#1-wgetコマンドのインストール" class="headerlink" title="1. wgetコマンドのインストール"></a>1. wgetコマンドのインストール</h3><p>wgetコマンドをDebian10で使用するためには、次のコマンドでインストールします。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Using Debian, as root</span></span><br><span class="line">sudo apt-get install wget</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Atomの認証キーをリモートから取得"><a href="#2-Atomの認証キーをリモートから取得" class="headerlink" title="2. Atomの認証キーをリモートから取得"></a>2. Atomの認証キーをリモートから取得</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Using Debian, as root</span></span><br><span class="line">wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-認証キーをOSのリポジトリに追加"><a href="#3-認証キーをOSのリポジトリに追加" class="headerlink" title="3. 認証キーをOSのリポジトリに追加"></a>3. 認証キーをOSのリポジトリに追加</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Using Debian, as root</span><br><span class="line">sudo sh -c &#x27;echo &quot;deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main&quot; &gt; /etc/apt/sources.list.d/atom.list&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-OSのリポジトリを更新"><a href="#3-OSのリポジトリを更新" class="headerlink" title="3. OSのリポジトリを更新"></a>3. OSのリポジトリを更新</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Using Debian, as root</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Atomをインストール"><a href="#4-Atomをインストール" class="headerlink" title="4. Atomをインストール"></a>4. Atomをインストール</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Using Debian, as root</span><br><span class="line">sudo apt-get install atom</span><br></pre></td></tr></table></figure>
+
+<h2 id="Chromeやnpmをインストールすると、Atomが起動しなくなる"><a href="#Chromeやnpmをインストールすると、Atomが起動しなくなる" class="headerlink" title="Chromeやnpmをインストールすると、Atomが起動しなくなる"></a>Chromeやnpmをインストールすると、Atomが起動しなくなる</h2><p>Atomのインストール後、その他のソフト・ツールをインストールしたところ、Atom自体が起動しなくなりました。対応方法を調べたところ、次のページを見つけました。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/electron/electron/issues/17972">https://github.com/electron/electron/issues/17972</a></p>
+</blockquote>
+<p>vladimiryさんのコメント（commented on 28 Apr 2019）によれば、「atomのchrome-sandboxのパーミッションを変更すると不具合が改善する」とありました。</p>
+<p>具体的には、「Chrome環境下でAtomを実行するためには、chrome-sandboxの所有権限を”root&#x2F;4755”に変更する必要がある」と書かれています。</p>
+<p>そこで下記手順を試したところ、Atomが無事起動するようになりました。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Using Debian, as root</span><br><span class="line">cd /user/share/atom</span><br><span class="line">chown root chrome-sandbox</span><br><span class="line">chmod 4755 chrome-sandbox</span><br></pre></td></tr></table></figure>
+
+<p>一連のQAを読んでみたところ、Chromeインストール後にAtomが立ち上がらなくなる原因は、「Atomのデフォルト設定はセキュリティ-プライバシーにChronium-sandboxを使っているが、Chromeのインストール時、Chronium-sandboxからChrome-sandboxに切り替わらないために脆弱性対策からAtomが起動しない」とありました。</p>
+<p>Chrome, npmインストール後に、このような現象が起きるらしいとも記載がありました。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>プログラミングエディタAtomは、Windows, Mac, Linuxのいずれのプラットフォームでも使用できるとても便利なエディタです。</p>
+<p>特にペイン分割という操作がとても便利です。画面を複数枚のペインに上下左右に分割でき、異なるソースを並べて同時編集することができます。</p>
+
+</div>
+
+
+                    </main>
+                </div>
+                <div class="col-12 col-lg-4 mx-0 my-0 px-0">
+                    <aside class="card mx-2 my-2 sidebar-sticky">
+    <div class="row mx-3 mt-3 mb-0">
+    </div>
+    
+        <section class="row mx-auto mx-3 mt-3 mb-0">
+    <div class="col-12">
+        <p class="h5 text-center">目次</p>
+    </div>
+    <div class="col-12">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF-Atom"><span class="toc-number">1.</span> <span class="toc-text">プログラミングエディタ - Atom</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF-Atom-Editor-Visual-Studio-Code-Typora"><span class="toc-number">1.1.</span> <span class="toc-text">エディタ - Atom Editor, Visual Studio Code, Typora</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%AB%E5%BF%85%E8%A6%81%E3%81%AA%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89"><span class="toc-number">2.</span> <span class="toc-text">インストールに必要なコマンド</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%89%8B%E9%A0%86"><span class="toc-number">3.</span> <span class="toc-text">インストール手順</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">インストール方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-wget%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-number">4.1.</span> <span class="toc-text">1. wgetコマンドのインストール</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Atom%E3%81%AE%E8%AA%8D%E8%A8%BC%E3%82%AD%E3%83%BC%E3%82%92%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%81%8B%E3%82%89%E5%8F%96%E5%BE%97"><span class="toc-number">4.2.</span> <span class="toc-text">2. Atomの認証キーをリモートから取得</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AA%8D%E8%A8%BC%E3%82%AD%E3%83%BC%E3%82%92OS%E3%81%AE%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AB%E8%BF%BD%E5%8A%A0"><span class="toc-number">4.3.</span> <span class="toc-text">3. 認証キーをOSのリポジトリに追加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-OS%E3%81%AE%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E6%9B%B4%E6%96%B0"><span class="toc-number">4.4.</span> <span class="toc-text">3. OSのリポジトリを更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Atom%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-number">4.5.</span> <span class="toc-text">4. Atomをインストール</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chrome%E3%82%84npm%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%A8%E3%80%81Atom%E3%81%8C%E8%B5%B7%E5%8B%95%E3%81%97%E3%81%AA%E3%81%8F%E3%81%AA%E3%82%8B"><span class="toc-number">5.</span> <span class="toc-text">Chromeやnpmをインストールすると、Atomが起動しなくなる</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%81%BE%E3%81%A8%E3%82%81"><span class="toc-number">6.</span> <span class="toc-text">まとめ</span></a></li></ol>
+    <div
+</section>
+
+        <div class="mx-3 my-0">
+    <hr>
+</div>
+
+    
+    <div class="h6 col-12 text-center mb-3">
+        <a href="#">
+            <i class="fa fa-long-arrow-up mr-2"></i>トップに戻る
+        </a>
+    </div>
+</aside>
+
+                </div>
+            </div>
+		</div>
+		<!-- Footer -->
+<div class="container">
+    <footer class="text-center mt-5 py-5">
+        
+
+    <a href="https://twitter.com/?lang=en" target="_blank"><i class="fa fa-twitter mx-2"></i></a>
+
+
+
+    <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube mx-2"></i></a>
+
+
+    <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram mx-2"></i></a>
+
+
+
+
+
+
+
+
+        <p class="h6 text-center mx-0 mt-5 mb-0">
+              Contents and Hexo theme, Copyright 2020 - by HamKaz
+        </p>
+    </footer>
+</div>
+
+		<!-- Include Javascript -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  </body>
+</html>

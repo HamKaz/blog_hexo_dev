@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+
+    <title>HexoをUbuntuにインストールする - hamkazの技術ブログ</title>
+
+    
+        <meta name="description" content="Hexoインストールと動作確認を行う。">
+    
+
+    
+        <meta name="author" content="HamKaz">
+    
+
+    
+        <meta property="og:title" content="HexoをUbuntuにインストールする"/>
+    
+
+    <meta property="og:site_name" content="hamkazの技術ブログ"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="/css/styles.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <div class="container">
+    <header class="navbar navbar-light pt-3">
+        <a class="navbar-brand navbar-toggleable-sm" href="/">
+            <span class="title d-none d-sm-block">hamkazの技術ブログ</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center mt-3 mt-md-0" id="navbarCollapse">
+            <span class="title d-block d-sm-none">hamkazの技術ブログ</span>
+            <ul class="navbar-nav ml-auto my-auto">
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                
+            </ul>
+            <hr class="hidden-md-up" />
+        </div>
+    </header>
+</div>
+
+        <div class="container">
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-0 my-0 px-0">
+                    <main class="card mx-2 my-2 sidebar-sticky">
+                        <div class="row mx-3 mt-3 mb-0">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 mx-auto mx-0 my-0 px-0">
+        <div class="flex">
+    <div class="flex-item">
+        <figure class="image-trim mb-0">
+            
+                
+                    <img src="/images/hexo.png" alt="HexoをUbuntuにインストールする">
+                
+            
+        </figure>
+    </div>
+</div>
+    </div>
+</div>
+<div class="row mx-auto mx-3 my-0">
+    
+
+
+    <p class="h4 text-center text-md-left mx-0 mt-3 mb-0">
+        HexoをUbuntuにインストールする
+    </p>
+
+
+</div>
+<div class="row mx-auto mx-3 mt-2 mb-0">
+    
+    <p class="date mx-3 my-0">
+        2020-05-13
+    </p>
+
+
+</div>
+<nav class="row mx-auto mx-3 mt-2 mb-0">
+    
+
+<ul class="mx-0 my-0">
+    <li>
+        
+            <a href="/" target="_self">
+                <i class="fa fa-home"></i>
+                home
+            </a>
+        
+            <a href="/categories/2-Hexoでブログ作成/" target="_self">
+                <i class=""></i>
+                2-Hexoでブログ作成
+            </a>
+        
+            <a href="/categories/2-Hexoでブログ作成/a-Hexoをインストールする/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                a-Hexoをインストールする
+            </a>
+        
+    </li>
+</ul>
+
+</nav>
+
+<div class="mx-3 my-0">
+    <hr>
+</div>
+
+
+<div class="mx-3 my-0">
+    <h2 id="Hexoのインストール"><a href="#Hexoのインストール" class="headerlink" title="Hexoのインストール"></a>Hexoのインストール</h2><h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>Linux Debian&#x2F;Ubuntu系、デスクトップPCへインストールする。<br>※注　RaspbianOSなどについてはインストール上の制限があり、別途記述する。</p>
+<h2 id="インストール手順"><a href="#インストール手順" class="headerlink" title="インストール手順"></a>インストール手順</h2><ul>
+<li><ol>
+<li>Node.js</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>npm</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>git</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>hexo-cli</li>
+</ol>
+</li>
+</ul>
+<h3 id="インストールに必要なコマンド"><a href="#インストールに必要なコマンド" class="headerlink" title="インストールに必要なコマンド"></a>インストールに必要なコマンド</h3><p>ソフト管理 apt<br>パッケージ管理 node<br>バージョン管理 npm<br>ソースコード管理 git<br>Hexoクライアント hexo-cli</p>
+<p>コマンドがインストールされているかチェックする方法は、下記の通り。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br><span class="line">git version</span><br><span class="line">hexo-cli -v</span><br></pre></td></tr></table></figure>
+
+<p>バージョン確認できないものはインストールされていないので、インストールを行う。</p>
+<h3 id="1-Node-jsインストール"><a href="#1-Node-jsインストール" class="headerlink" title="1. Node.jsインストール"></a>1. Node.jsインストール</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Debian 10, as root</span></span><br><span class="line">apt install nodejs </span><br></pre></td></tr></table></figure>
+
+<h3 id="2-npmインストール"><a href="#2-npmインストール" class="headerlink" title="2. npmインストール"></a>2. npmインストール</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Debian 10, as root</span></span><br><span class="line">apt install npm</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-gitインストール"><a href="#3-gitインストール" class="headerlink" title="3. gitインストール"></a>3. gitインストール</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Debian 10, as root</span></span><br><span class="line">apt install git</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-hexo-cliインストール"><a href="#4-hexo-cliインストール" class="headerlink" title="4. hexo-cliインストール"></a>4. hexo-cliインストール</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Debian 10, as root</span></span><br><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<h2 id="立ち上げ"><a href="#立ち上げ" class="headerlink" title="立ち上げ"></a>立ち上げ</h2><p>Hexoのシンボリックリンクは&#x2F;usr&#x2F;local&#x2F;binにあり、PC上のどのディレクトリからもbashで実行できる。</p>
+<h3 id="バージョン確認"><a href="#バージョン確認" class="headerlink" title="バージョン確認"></a>バージョン確認</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hexoの初期処理"><a href="#Hexoの初期処理" class="headerlink" title="Hexoの初期処理"></a>Hexoの初期処理</h3><p>hexo init <dir>コマンドで初期化し、配下の<dir>に移動</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;Directory&gt;</span><br></pre></td></tr></table></figure>
+
+<p>npm installが合わせて実行される。追加プラグインはpackage.jsonに追記する。</p>
+<h3 id="Hexoサーバーの立ち上げ"><a href="#Hexoサーバーの立ち上げ" class="headerlink" title="Hexoサーバーの立ち上げ"></a>Hexoサーバーの立ち上げ</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;Directory&gt;</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h3 id="ブラウザで確認"><a href="#ブラウザで確認" class="headerlink" title="ブラウザで確認"></a>ブラウザで確認</h3><p>ブラウザーで確認</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:4000</span><br></pre></td></tr></table></figure>
+
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>見た目のデザインは、デフォルトテーマlandscapeとなっている。<br>他のデザインに変更する場合、ディレクトリthemes配下に好みのテーマを<strong>git clone</strong>する。</p>
+
+</div>
+
+
+                    </main>
+                </div>
+                <div class="col-12 col-lg-4 mx-0 my-0 px-0">
+                    <aside class="card mx-2 my-2 sidebar-sticky">
+    <div class="row mx-3 mt-3 mb-0">
+    </div>
+    
+        <section class="row mx-auto mx-3 mt-3 mb-0">
+    <div class="col-12">
+        <p class="h5 text-center">目次</p>
+    </div>
+    <div class="col-12">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-number">1.</span> <span class="toc-text">Hexoのインストール</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%89%8B%E9%A0%86"><span class="toc-number">3.</span> <span class="toc-text">インストール手順</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%AB%E5%BF%85%E8%A6%81%E3%81%AA%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89"><span class="toc-number">3.1.</span> <span class="toc-text">インストールに必要なコマンド</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Node-js%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-number">3.2.</span> <span class="toc-text">1. Node.jsインストール</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-npm%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-number">3.3.</span> <span class="toc-text">2. npmインストール</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-git%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-number">3.4.</span> <span class="toc-text">3. gitインストール</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-hexo-cli%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-number">3.5.</span> <span class="toc-text">4. hexo-cliインストール</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92"><span class="toc-number">4.</span> <span class="toc-text">立ち上げ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E7%A2%BA%E8%AA%8D"><span class="toc-number">4.1.</span> <span class="toc-text">バージョン確認</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo%E3%81%AE%E5%88%9D%E6%9C%9F%E5%87%A6%E7%90%86"><span class="toc-number">4.2.</span> <span class="toc-text">Hexoの初期処理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92"><span class="toc-number">4.3.</span> <span class="toc-text">Hexoサーバーの立ち上げ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%A7%E7%A2%BA%E8%AA%8D"><span class="toc-number">4.4.</span> <span class="toc-text">ブラウザで確認</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%81%BE%E3%81%A8%E3%82%81"><span class="toc-number">5.</span> <span class="toc-text">まとめ</span></a></li></ol>
+    <div
+</section>
+
+        <div class="mx-3 my-0">
+    <hr>
+</div>
+
+    
+    <div class="h6 col-12 text-center mb-3">
+        <a href="#">
+            <i class="fa fa-long-arrow-up mr-2"></i>トップに戻る
+        </a>
+    </div>
+</aside>
+
+                </div>
+            </div>
+		</div>
+		<!-- Footer -->
+<div class="container">
+    <footer class="text-center mt-5 py-5">
+        
+
+    <a href="https://twitter.com/?lang=en" target="_blank"><i class="fa fa-twitter mx-2"></i></a>
+
+
+
+    <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube mx-2"></i></a>
+
+
+    <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram mx-2"></i></a>
+
+
+
+
+
+
+
+
+        <p class="h6 text-center mx-0 mt-5 mb-0">
+              Contents and Hexo theme, Copyright 2020 - by HamKaz
+        </p>
+    </footer>
+</div>
+
+		<!-- Include Javascript -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  </body>
+</html>

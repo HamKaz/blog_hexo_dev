@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+
+    <title>bashでよく使用するコマンドを登録 - hamkazの技術ブログ</title>
+
+    
+        <meta name="description" content="bash上でよく使用するコマンドをエイリアスで短縮登録します。">
+    
+
+    
+        <meta name="author" content="HamKaz">
+    
+
+    
+        <meta property="og:title" content="bashでよく使用するコマンドを登録"/>
+    
+
+    <meta property="og:site_name" content="hamkazの技術ブログ"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="/css/styles.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <div class="container">
+    <header class="navbar navbar-light pt-3">
+        <a class="navbar-brand navbar-toggleable-sm" href="/">
+            <span class="title d-none d-sm-block">hamkazの技術ブログ</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center mt-3 mt-md-0" id="navbarCollapse">
+            <span class="title d-block d-sm-none">hamkazの技術ブログ</span>
+            <ul class="navbar-nav ml-auto my-auto">
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                
+            </ul>
+            <hr class="hidden-md-up" />
+        </div>
+    </header>
+</div>
+
+        <div class="container">
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-0 my-0 px-0">
+                    <main class="card mx-2 my-2 sidebar-sticky">
+                        <div class="row mx-3 mt-3 mb-0">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 mx-auto mx-0 my-0 px-0">
+        <div class="flex">
+    <div class="flex-item">
+        <figure class="image-trim mb-0">
+            
+                
+                    <img src="/images/alias.jpg" alt="bashでよく使用するコマンドを登録">
+                
+            
+        </figure>
+    </div>
+</div>
+    </div>
+</div>
+<div class="row mx-auto mx-3 my-0">
+    
+
+
+    <p class="h4 text-center text-md-left mx-0 mt-3 mb-0">
+        bashでよく使用するコマンドを登録
+    </p>
+
+
+</div>
+<div class="row mx-auto mx-3 mt-2 mb-0">
+    
+    <p class="date mx-3 my-0">
+        2020-06-10
+    </p>
+
+
+</div>
+<nav class="row mx-auto mx-3 mt-2 mb-0">
+    
+
+<ul class="mx-0 my-0">
+    <li>
+        
+            <a href="/" target="_self">
+                <i class="fa fa-home"></i>
+                home
+            </a>
+        
+            <a href="/categories/etc-Linuxプログラミング実践/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                etc-Linuxプログラミング実践
+            </a>
+        
+            <a href="/categories/etc-Linuxプログラミング実践/c-Linuxの使えるコマンド/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                c-Linuxの使えるコマンド
+            </a>
+        
+    </li>
+</ul>
+
+</nav>
+
+<div class="mx-3 my-0">
+    <hr>
+</div>
+
+
+<div class="mx-3 my-0">
+    <h2 id="bash-コンソール画面"><a href="#bash-コンソール画面" class="headerlink" title="bash - コンソール画面"></a>bash - コンソール画面</h2><p>bashは、Linux上でコマンド実行ができるコンソールと呼ばれるツールです。</p>
+<h2 id="alias-短縮コマンド設定"><a href="#alias-短縮コマンド設定" class="headerlink" title="alias - 短縮コマンド設定"></a>alias - 短縮コマンド設定</h2><p>毎回同じコマンドを打ち込む場合、コマンド登録しておくと便利です。<br>設定したエイリアスは、シェルスクリプトの起動時に読み込まれます。</p>
+<h3 id="使っているシェルの種類の調べ方"><a href="#使っているシェルの種類の調べ方" class="headerlink" title="使っているシェルの種類の調べ方"></a>使っているシェルの種類の調べ方</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -p $$</span><br></pre></td></tr></table></figure>
+
+<p>Debian10のシェルはbashです。bashのコマンド登録は、設定ファイル’.bashrc’上で行います。<br>bashで頻繁に同じコマンドを打ち込む場合には、あらかじめ短縮コマンドとしてエイリアス設定しておくと、作業が軽減されます。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h3><p>bashのエイリアス設定は、設定ファイル’.bashrc’の最終行に、aliasとして追加登録します。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias apin = &#x27;apt install&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="‘-bashrc’はどこにあるか？"><a href="#‘-bashrc’はどこにあるか？" class="headerlink" title="‘.bashrc’はどこにあるか？"></a>‘.bashrc’はどこにあるか？</h3><p>ホームディレクトリに存在します。’.’付きの隠しファイルです。</p>
+<h3 id="エイリアスの追加方法"><a href="#エイリアスの追加方法" class="headerlink" title="エイリアスの追加方法"></a>エイリアスの追加方法</h3><p>‘.bashrc’の最終行に、エイリアスを追加します。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano: &#x27;.bashrc&#x27;</span><br><span class="line">alias cdg=&#x27;cd ~/git/blog&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="反映"><a href="#反映" class="headerlink" title="反映"></a>反映</h3><p>エイリアスを反映させるためには、シェルを再起動します。シェルコンソールを一旦閉じて、再度立ち上げると、新しく作ったエイリアスが使えるようになります。</p>
+<h2 id="シンボリックリンク"><a href="#シンボリックリンク" class="headerlink" title="シンボリックリンク"></a>シンボリックリンク</h2><p>Linuxでよく使うツールはあらかじめシンボリックリンクを登録しておくと、グローバルに使用できます。bashで&#x2F;usr&#x2F;local以外のシンボリックリンクを登録する方法について調べてみました。</p>
+<h3 id="bashのシンボリックリンクを設定する"><a href="#bashのシンボリックリンクを設定する" class="headerlink" title="bashのシンボリックリンクを設定する"></a>bashのシンボリックリンクを設定する</h3><p>Debianにおける.bashrcの役割とシンボリックリンクのPATHの通し方</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.mk-mode.com/blog/2014/07/20/linux-bash-setting-files-debian/"></a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://qiita.com/thermes/items/926b478ff6e3758ecfea"></a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://techracho.bpsinc.jp/hachi8833/2019_06_06/66396"></a></p>
+</blockquote>
+<p>shファイルの実行 - Linux</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://linuxfan.info/post-1486"></a></p>
+</blockquote>
+<p>&#x2F;usr&#x2F;localにシンボリックリンク、パスを通す</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://qiita.com/Naggi-Goishi/items/2c49ea50602ea80bf015">Linux入門 <del>「パスを通す」とは</del></a></p>
+</blockquote>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>頻繁につかうコマンドは.bashrcにまとめて登録しておくと、コマンド打ち込み時の作業負荷が大幅に軽減できます。</p>
+
+</div>
+
+
+                    </main>
+                </div>
+                <div class="col-12 col-lg-4 mx-0 my-0 px-0">
+                    <aside class="card mx-2 my-2 sidebar-sticky">
+    <div class="row mx-3 mt-3 mb-0">
+    </div>
+    
+        <section class="row mx-auto mx-3 mt-3 mb-0">
+    <div class="col-12">
+        <p class="h5 text-center">目次</p>
+    </div>
+    <div class="col-12">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#bash-%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E7%94%BB%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">bash - コンソール画面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#alias-%E7%9F%AD%E7%B8%AE%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E8%A8%AD%E5%AE%9A"><span class="toc-number">2.</span> <span class="toc-text">alias - 短縮コマンド設定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%82%B7%E3%82%A7%E3%83%AB%E3%81%AE%E7%A8%AE%E9%A1%9E%E3%81%AE%E8%AA%BF%E3%81%B9%E6%96%B9"><span class="toc-number">2.1.</span> <span class="toc-text">使っているシェルの種類の調べ方</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A"><span class="toc-number">3.1.</span> <span class="toc-text">設定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%98-bashrc%E2%80%99%E3%81%AF%E3%81%A9%E3%81%93%E3%81%AB%E3%81%82%E3%82%8B%E3%81%8B%EF%BC%9F"><span class="toc-number">3.2.</span> <span class="toc-text">‘.bashrc’はどこにあるか？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%A8%E3%82%A4%E3%83%AA%E3%82%A2%E3%82%B9%E3%81%AE%E8%BF%BD%E5%8A%A0%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">エイリアスの追加方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E6%98%A0"><span class="toc-number">3.4.</span> <span class="toc-text">反映</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%B7%E3%83%B3%E3%83%9C%E3%83%AA%E3%83%83%E3%82%AF%E3%83%AA%E3%83%B3%E3%82%AF"><span class="toc-number">4.</span> <span class="toc-text">シンボリックリンク</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bash%E3%81%AE%E3%82%B7%E3%83%B3%E3%83%9C%E3%83%AA%E3%83%83%E3%82%AF%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B"><span class="toc-number">4.1.</span> <span class="toc-text">bashのシンボリックリンクを設定する</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%81%BE%E3%81%A8%E3%82%81"><span class="toc-number">5.</span> <span class="toc-text">まとめ</span></a></li></ol>
+    <div
+</section>
+
+        <div class="mx-3 my-0">
+    <hr>
+</div>
+
+    
+    <div class="h6 col-12 text-center mb-3">
+        <a href="#">
+            <i class="fa fa-long-arrow-up mr-2"></i>トップに戻る
+        </a>
+    </div>
+</aside>
+
+                </div>
+            </div>
+		</div>
+		<!-- Footer -->
+<div class="container">
+    <footer class="text-center mt-5 py-5">
+        
+
+    <a href="https://twitter.com/?lang=en" target="_blank"><i class="fa fa-twitter mx-2"></i></a>
+
+
+
+    <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube mx-2"></i></a>
+
+
+    <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram mx-2"></i></a>
+
+
+
+
+
+
+
+
+        <p class="h6 text-center mx-0 mt-5 mb-0">
+              Contents and Hexo theme, Copyright 2020 - by HamKaz
+        </p>
+    </footer>
+</div>
+
+		<!-- Include Javascript -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  </body>
+</html>

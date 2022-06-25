@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+
+    <title>Hexoのエラーに対処する - hamkazの技術ブログ</title>
+
+    
+        <meta name="description" content="Hexoがよくわからない段階でエラーが発生すると、パニックになってしまう。Hexoでよく発生するエラーの回避方法を解説します。">
+    
+
+    
+        <meta name="author" content="HamKaz">
+    
+
+    
+        <meta property="og:title" content="Hexoのエラーに対処する"/>
+    
+
+    <meta property="og:site_name" content="hamkazの技術ブログ"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="/css/styles.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <div class="container">
+    <header class="navbar navbar-light pt-3">
+        <a class="navbar-brand navbar-toggleable-sm" href="/">
+            <span class="title d-none d-sm-block">hamkazの技術ブログ</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center mt-3 mt-md-0" id="navbarCollapse">
+            <span class="title d-block d-sm-none">hamkazの技術ブログ</span>
+            <ul class="navbar-nav ml-auto my-auto">
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                
+            </ul>
+            <hr class="hidden-md-up" />
+        </div>
+    </header>
+</div>
+
+        <div class="container">
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-0 my-0 px-0">
+                    <main class="card mx-2 my-2 sidebar-sticky">
+                        <div class="row mx-3 mt-3 mb-0">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 mx-auto mx-0 my-0 px-0">
+        <div class="flex">
+    <div class="flex-item">
+        <figure class="image-trim mb-0">
+            
+                
+                    <img src="/images/hexo.png" alt="Hexoのエラーに対処する">
+                
+            
+        </figure>
+    </div>
+</div>
+    </div>
+</div>
+<div class="row mx-auto mx-3 my-0">
+    
+
+
+    <p class="h4 text-center text-md-left mx-0 mt-3 mb-0">
+        Hexoのエラーに対処する
+    </p>
+
+
+</div>
+<div class="row mx-auto mx-3 mt-2 mb-0">
+    
+    <p class="date mx-3 my-0">
+        2020-06-11
+    </p>
+
+
+</div>
+<nav class="row mx-auto mx-3 mt-2 mb-0">
+    
+
+<ul class="mx-0 my-0">
+    <li>
+        
+            <a href="/" target="_self">
+                <i class="fa fa-home"></i>
+                home
+            </a>
+        
+            <a href="/categories/2-Hexoでブログ作成/" target="_self">
+                <i class=""></i>
+                2-Hexoでブログ作成
+            </a>
+        
+            <a href="/categories/2-Hexoでブログ作成/a-Hexoをインストールする/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                a-Hexoをインストールする
+            </a>
+        
+    </li>
+</ul>
+
+</nav>
+
+<div class="mx-3 my-0">
+    <hr>
+</div>
+
+
+<div class="mx-3 my-0">
+    <h2 id="エラー-Could-not-open-db-json"><a href="#エラー-Could-not-open-db-json" class="headerlink" title="エラー Could not open db.json"></a>エラー Could not open db.json</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hamkaz@debian1-de-kaz:~/js/hexo/blog2$ hexo generate</span><br><span class="line">FATAL [hexo-include-markdown] Could not open db.json .</span><br><span class="line">Error: [hexo-include-markdown] Could not open db.json .</span><br><span class="line">    at ReadFileContext.callback (/home/hamkaz/js/hexo/blog2/node_modules/hexo-include-markdown/lib/orverwriteCache.js:22:15)</span><br><span class="line">    at FSReqCallback.readFileAfterOpen [as oncomplete] (fs.js:257:13)</span><br></pre></td></tr></table></figure>
+
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>hexo cleanコマンドを実行直後に、空のdb.jsonを作成する。</p>
+<p>db.jsonが削除されてしまったため。hexo cleanコマンドを実行すると、publicフォルダとともにdb.jsonが削除されてしまいます。db.jsonはhexo generateのデータベースとなっているため、一旦削除してしまうとhexo generateできなくなります。</p>
+<h3 id="対策"><a href="#対策" class="headerlink" title="対策"></a>対策</h3><p>db.jsonを新規作成します。</p>
+<p><code>hexo clean</code>コマンドを実行後、すぐに<code>touch db.json</code>コマンドで空のdb.jsonコマンドを作成します。これにより、hexo generate実行が可能になります。</p>
+<h2 id="エラー-categories-find-is-not-a-function"><a href="#エラー-categories-find-is-not-a-function" class="headerlink" title="エラー categories.find is not a function"></a>エラー categories.find is not a function</h2><h3 id="原因-1"><a href="#原因-1" class="headerlink" title="原因"></a>原因</h3><p>固定ページには、カテゴリー属性やタグ属性を持たせてはいけない。</p>
+<p>hexoのテーマをlandscapeとすると、navに表示する３つのナビゲーションのマークダウンファイルがsource&#x2F;_posts配下になく、またフロントマターがcategories属性をもっているためジェネレートできない。</p>
+<h3 id="対策-1"><a href="#対策-1" class="headerlink" title="対策"></a>対策</h3><p>フロントマターからcategoriesやtag属性を削除する。</p>
+<blockquote>
+<p> <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/2379">categories.find is not a function</a></p>
+</blockquote>
+<p>hardywu commented on 14 Apr 2018のコメント</p>
+<blockquote>
+<p>This happens when you put posts not in <code>source/_posts</code> directory. Hexo cannot generate categories variable correctly.</p>
+</blockquote>
+<h2 id="エラー-npm-notice-created-a-lockfile-as-package-lock-json-You-should-commit-this-file"><a href="#エラー-npm-notice-created-a-lockfile-as-package-lock-json-You-should-commit-this-file" class="headerlink" title="エラー npm notice created a lockfile as package-lock.json. You should commit this file."></a>エラー npm notice created a lockfile as package-lock.json. You should commit this file.</h2><p>シンボリックリンクが通っていないので、ローカルを参照させる</p>
+<p>&#x2F;usr&#x2F;local&#x2F;lib&#x2F;node_modules&#x2F;hexo-multicolumn-display -&gt; &#x2F;home&#x2F;hamkaz&#x2F;js&#x2F;hexo&#x2F;hexo-multicolumn-display</p>
+<h2 id="エラー-npm-ERR-extraneous-means-a-package-is-installed-but-is-not-listed-in-your-project’s-package-json"><a href="#エラー-npm-ERR-extraneous-means-a-package-is-installed-but-is-not-listed-in-your-project’s-package-json" class="headerlink" title="エラー npm ERR! extraneous means a package is installed but is not listed in your project’s package.json."></a>エラー npm ERR! extraneous means a package is installed but is not listed in your project’s package.json.</h2><p>extraneousエラーとは、package.jsonに宣言されてないよエラー</p>
+<blockquote>
+<p> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/40778822/npm-link-causes-extraneous-errors">npm link causes “extraneous” errors</a></p>
+</blockquote>
+<h2 id="エラー-npm-WARN-saveError-ENOENT-no-such-file-or-directory-open-‘-x2F-home-x2F-hamkaz-x2F-js-x2F-hexo-x2F-Hexo-plugin-test-x2F-package-json’"><a href="#エラー-npm-WARN-saveError-ENOENT-no-such-file-or-directory-open-‘-x2F-home-x2F-hamkaz-x2F-js-x2F-hexo-x2F-Hexo-plugin-test-x2F-package-json’" class="headerlink" title="エラー npm WARN saveError ENOENT: no such file or directory, open ‘&#x2F;home&#x2F;hamkaz&#x2F;js&#x2F;hexo&#x2F;Hexo-plugin-test&#x2F;package.json’"></a>エラー npm WARN saveError ENOENT: no such file or directory, open ‘&#x2F;home&#x2F;hamkaz&#x2F;js&#x2F;hexo&#x2F;Hexo-plugin-test&#x2F;package.json’</h2><p>repositoryが無いよエラー</p>
+<p>解決策 &#x3D; package.jsonを作成する -&gt; npm init</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://qiita.com/righteous/items/e5448cb2e7e11ab7d477">package.jsonとは？</a></p>
+</blockquote>
+<h2 id="削除データがgenerateされてしまう"><a href="#削除データがgenerateされてしまう" class="headerlink" title="削除データがgenerateされてしまう"></a>削除データがgenerateされてしまう</h2><h3 id="原因-2"><a href="#原因-2" class="headerlink" title="原因"></a>原因</h3><p>db.jsonに過去のデータ（カスファイル）が溜まっている</p>
+<h3 id="対策-2"><a href="#対策-2" class="headerlink" title="対策"></a>対策</h3><p>hexo cleanする。空のdb.jsonと、空のpublicディレクトリを作って、hexo generateする。</p>
+<h3 id="状況"><a href="#状況" class="headerlink" title="状況"></a>状況</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hamkaz@debian1-de-kaz:~/js/hexo/blog2$ hexo generate</span><br><span class="line">FATAL [hexo-include-markdown] Could not open db.json .</span><br><span class="line">Error: [hexo-include-markdown] Could not open db.json .</span><br><span class="line">    at ReadFileContext.callback (/home/hamkaz/js/hexo/blog2/node_modules/hexo-include-markdown/lib/orverwriteCache.js:22:15)</span><br><span class="line">    at FSReqCallback.readFileAfterOpen [as oncomplete] (fs.js:257:13)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hamkaz@debian1-de-kaz:~/js/hexo/blog2$ hexo init</span><br><span class="line">FATAL [hexo-include-markdown] Could not open db.json .</span><br><span class="line">Error: [hexo-include-markdown] Could not open db.json .</span><br><span class="line">    at ReadFileContext.callback (/home/hamkaz/js/hexo/blog2/node_modules/hexo-include-markdown/lib/orverwriteCache.js:22:15)</span><br><span class="line">    at FSReqCallback.readFileAfterOpen [as oncomplete] (fs.js:257:13)</span><br></pre></td></tr></table></figure>
+
+<h2 id="YAMLException-duclicated-mapping-at-Line-118"><a href="#YAMLException-duclicated-mapping-at-Line-118" class="headerlink" title="YAMLException: duclicated mapping  at  Line 118"></a>YAMLException: duclicated mapping  at  Line 118</h2><p>118 skip_render が二重に宣言されている</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">hamkaz@debian1-de-kaz:~/js/hexo/blog2$ hexo generate</span><br><span class="line">FATAL duplicated mapping key at line 118, column -51:</span><br><span class="line">    skip_render:</span><br><span class="line">    ^</span><br><span class="line">YAMLException: duplicated mapping key at line 118, column -51:</span><br><span class="line">    skip_render:</span><br><span class="line">    ^</span><br><span class="line">    at generateError (/home/hamkaz/js/hexo/blog2/node_modules/js-yaml/lib/js-yaml/loader.js:167:10)</span><br><span class="line">    at throwError (/home/hamkaz/js/hexo/blog2/node_modules/js-yaml/lib/js-yaml/loader.js:173:9)</span><br><span class="line">    at storeMappingPair (/home/hamkaz/js/hexo/blog2/node_modules/js-yaml/lib/js-yaml/loader.js:335:7)</span><br><span class="line">    at readBlockMapping (/home/hamkaz/js/hexo/blog2/node_modules/js-yaml/lib/js-yaml/loader.js:1098:9)</span><br><span class="line">    at composeNode (/home/hamkaz/js/hexo/blog2/node_modules/js-yaml/lib/js-yaml/loader.js:1359:12)</span><br><span class="line">    at readDocument (/home/hamkaz/js/hexo/blog2/node_modules/js-yaml/lib/js-yaml/loader.js:1525:3)</span><br><span class="line">    at loadDocuments (/home/hamkaz/js/hexo/blog2/node_modules/js-yaml/lib/js-yaml/loader.js:1588:5)</span><br><span class="line">    at Object.load (/home/hamkaz/js/hexo/blog2/node_modules/js-yaml/lib/js-yaml/loader.js:1614:19)</span><br><span class="line">    at Hexo.yamlHelper (/home/hamkaz/js/hexo/blog2/node_modules/hexo/lib/plugins/renderer/yaml.js:7:15)</span><br><span class="line">    at Hexo.tryCatcher (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at Hexo.&lt;anonymous&gt; (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/method.js:15:34)</span><br><span class="line">    at /home/hamkaz/js/hexo/blog2/node_modules/hexo/lib/hexo/render.js:75:22</span><br><span class="line">    at tryCatcher (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at Promise._settlePromiseFromHandler (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/promise.js:547:31)</span><br><span class="line">    at Promise._settlePromise (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/promise.js:604:18)</span><br><span class="line">    at Promise._settlePromise0 (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/promise.js:649:10)</span><br><span class="line">    at Promise._settlePromises (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/promise.js:729:18)</span><br><span class="line">    at _drainQueueStep (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/async.js:93:12)</span><br><span class="line">    at _drainQueue (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/async.js:86:9)</span><br><span class="line">    at Async._drainQueues (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/async.js:102:5)</span><br><span class="line">    at Immediate.Async.drainQueues [as _onImmediate] (/home/hamkaz/js/hexo/blog2/node_modules/bluebird/js/release/async.js:15:14)</span><br><span class="line">    at processImmediate (internal/timers.js:456:21)</span><br></pre></td></tr></table></figure>
+
+</div>
+
+
+                    </main>
+                </div>
+                <div class="col-12 col-lg-4 mx-0 my-0 px-0">
+                    <aside class="card mx-2 my-2 sidebar-sticky">
+    <div class="row mx-3 mt-3 mb-0">
+    </div>
+    
+        <section class="row mx-auto mx-3 mt-3 mb-0">
+    <div class="col-12">
+        <p class="h5 text-center">目次</p>
+    </div>
+    <div class="col-12">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%A8%E3%83%A9%E3%83%BC-Could-not-open-db-json"><span class="toc-number">1.</span> <span class="toc-text">エラー Could not open db.json</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.1.</span> <span class="toc-text">原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BE%E7%AD%96"><span class="toc-number">1.2.</span> <span class="toc-text">対策</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%A8%E3%83%A9%E3%83%BC-categories-find-is-not-a-function"><span class="toc-number">2.</span> <span class="toc-text">エラー categories.find is not a function</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0-1"><span class="toc-number">2.1.</span> <span class="toc-text">原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BE%E7%AD%96-1"><span class="toc-number">2.2.</span> <span class="toc-text">対策</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%A8%E3%83%A9%E3%83%BC-npm-notice-created-a-lockfile-as-package-lock-json-You-should-commit-this-file"><span class="toc-number">3.</span> <span class="toc-text">エラー npm notice created a lockfile as package-lock.json. You should commit this file.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%A8%E3%83%A9%E3%83%BC-npm-ERR-extraneous-means-a-package-is-installed-but-is-not-listed-in-your-project%E2%80%99s-package-json"><span class="toc-number">4.</span> <span class="toc-text">エラー npm ERR! extraneous means a package is installed but is not listed in your project’s package.json.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%A8%E3%83%A9%E3%83%BC-npm-WARN-saveError-ENOENT-no-such-file-or-directory-open-%E2%80%98-x2F-home-x2F-hamkaz-x2F-js-x2F-hexo-x2F-Hexo-plugin-test-x2F-package-json%E2%80%99"><span class="toc-number">5.</span> <span class="toc-text">エラー npm WARN saveError ENOENT: no such file or directory, open ‘&#x2F;home&#x2F;hamkaz&#x2F;js&#x2F;hexo&#x2F;Hexo-plugin-test&#x2F;package.json’</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8A%E9%99%A4%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8Cgenerate%E3%81%95%E3%82%8C%E3%81%A6%E3%81%97%E3%81%BE%E3%81%86"><span class="toc-number">6.</span> <span class="toc-text">削除データがgenerateされてしまう</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0-2"><span class="toc-number">6.1.</span> <span class="toc-text">原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BE%E7%AD%96-2"><span class="toc-number">6.2.</span> <span class="toc-text">対策</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%B3%81"><span class="toc-number">6.3.</span> <span class="toc-text">状況</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#YAMLException-duclicated-mapping-at-Line-118"><span class="toc-number">7.</span> <span class="toc-text">YAMLException: duclicated mapping  at  Line 118</span></a></li></ol>
+    <div
+</section>
+
+        <div class="mx-3 my-0">
+    <hr>
+</div>
+
+    
+    <div class="h6 col-12 text-center mb-3">
+        <a href="#">
+            <i class="fa fa-long-arrow-up mr-2"></i>トップに戻る
+        </a>
+    </div>
+</aside>
+
+                </div>
+            </div>
+		</div>
+		<!-- Footer -->
+<div class="container">
+    <footer class="text-center mt-5 py-5">
+        
+
+    <a href="https://twitter.com/?lang=en" target="_blank"><i class="fa fa-twitter mx-2"></i></a>
+
+
+
+    <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube mx-2"></i></a>
+
+
+    <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram mx-2"></i></a>
+
+
+
+
+
+
+
+
+        <p class="h6 text-center mx-0 mt-5 mb-0">
+              Contents and Hexo theme, Copyright 2020 - by HamKaz
+        </p>
+    </footer>
+</div>
+
+		<!-- Include Javascript -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  </body>
+</html>

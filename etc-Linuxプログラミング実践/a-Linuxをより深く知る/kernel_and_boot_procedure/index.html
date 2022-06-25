@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+
+    <title>Linuxのカーネルと起動制御 - hamkazの技術ブログ</title>
+
+    
+        <meta name="description" content="Linuxでは目的に応じて起動するKernelをカスタマイズできます。起動時に読み込まれるKernelのうち、エラーを吐くKernelの調べ方、起動を遅延させるKernelへの対応方法を調べます。">
+    
+
+    
+        <meta name="author" content="HamKaz">
+    
+
+    
+        <meta property="og:title" content="Linuxのカーネルと起動制御"/>
+    
+
+    <meta property="og:site_name" content="hamkazの技術ブログ"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="/css/styles.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <div class="container">
+    <header class="navbar navbar-light pt-3">
+        <a class="navbar-brand navbar-toggleable-sm" href="/">
+            <span class="title d-none d-sm-block">hamkazの技術ブログ</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center mt-3 mt-md-0" id="navbarCollapse">
+            <span class="title d-block d-sm-none">hamkazの技術ブログ</span>
+            <ul class="navbar-nav ml-auto my-auto">
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                
+            </ul>
+            <hr class="hidden-md-up" />
+        </div>
+    </header>
+</div>
+
+        <div class="container">
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-0 my-0 px-0">
+                    <main class="card mx-2 my-2 sidebar-sticky">
+                        <div class="row mx-3 mt-3 mb-0">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 mx-auto mx-0 my-0 px-0">
+        <div class="flex">
+    <div class="flex-item">
+        <figure class="image-trim mb-0">
+            
+                
+                    <img src="/images/linux.png" alt="Linuxのカーネルと起動制御">
+                
+            
+        </figure>
+    </div>
+</div>
+    </div>
+</div>
+<div class="row mx-auto mx-3 my-0">
+    
+
+
+    <p class="h4 text-center text-md-left mx-0 mt-3 mb-0">
+        Linuxのカーネルと起動制御
+    </p>
+
+
+</div>
+<div class="row mx-auto mx-3 mt-2 mb-0">
+    
+    <p class="date mx-3 my-0">
+        2020-05-15
+    </p>
+
+
+</div>
+<nav class="row mx-auto mx-3 mt-2 mb-0">
+    
+
+<ul class="mx-0 my-0">
+    <li>
+        
+            <a href="/" target="_self">
+                <i class="fa fa-home"></i>
+                home
+            </a>
+        
+            <a href="/categories/etc-Linuxプログラミング実践/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                etc-Linuxプログラミング実践
+            </a>
+        
+            <a href="/categories/etc-Linuxプログラミング実践/a-Linuxをより深く知る/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                a-Linuxをより深く知る
+            </a>
+        
+    </li>
+</ul>
+
+</nav>
+
+<div class="mx-3 my-0">
+    <hr>
+</div>
+
+
+<div class="mx-3 my-0">
+    <h2 id="カーネル-Linuxの中核プログラム群"><a href="#カーネル-Linuxの中核プログラム群" class="headerlink" title="カーネル - Linuxの中核プログラム群"></a>カーネル - Linuxの中核プログラム群</h2><p>Linuxの安定起動、起動高速化を図るためには、カーネルを知ることが重要です。</p>
+<p>Linuxのカーネル（Kernel）は、ハードウエアとアプリケーションをつなぐ重要な役割を果たします。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.debian.org/releases/stable/armhf/install.pdf.ja">Debian GNU&#x2F;Linux インストールガイド</a></p>
+</blockquote>
+<p>Linuxのブートローダーは、カーネル(vmlinuz)とRAMディスク(initramfs)を読み込んだ後、各Kernelを順次起動します。</p>
+<h2 id="ベースマシンの構成"><a href="#ベースマシンの構成" class="headerlink" title="ベースマシンの構成"></a>ベースマシンの構成</h2><p>今回実験用に古いデスクトップPCにLinuxをインストールしました。<br>ベースマシンはHP Compaq 8200 Eliteで、ハードウエア仕様は次のとおりです。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CPU : Intel Core i3-2100 3.10GHz (64KB x 2 / 256KB x 2 / 3072KB x 1)</span><br><span class="line">RAM : 16384 MB DDR3 / 1333 MHz XMM1 8192 MB / XMM3 8192 MB</span><br><span class="line">HDD : WDC WD2500 250GB</span><br></pre></td></tr></table></figure>
+
+<p>Linux&#x2F;Debian10の構成内容は、以下のとおりです。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x86_64</span><br><span class="line">Linux/x86 4.19.118 Kernel Configuration</span><br><span class="line">Compiler: gcc-8 (Debian 8.3.0-6) 8.3.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="ハードディスクの起動構成"><a href="#ハードディスクの起動構成" class="headerlink" title="ハードディスクの起動構成"></a>ハードディスクの起動構成</h2><p>HDDの起動構成は、古い考え方のBIOS・MBRから、最近主流のUEFI・GPTへと変更しました。HP Compaq 8200 eliteはUEFI対応PCですので、LinuxなどOSのクリーンインストールを行うとGPTになります。</p>
+<p>UEFIでは、ブート領域を制御できます。LinuxとWindowsの両方をインストールすると、デュアルブートの知識も身につきます。</p>
+<h3 id="GRUB-ブートローダー"><a href="#GRUB-ブートローダー" class="headerlink" title="GRUB - ブートローダー"></a>GRUB - ブートローダー</h3><p>Debian10のブートローダーはGRUBです。</p>
+<p>GRUBは&#x2F;etc&#x2F;default&#x2F;grubに書かれた起動手順により、OSカーネル(vmlinuz)とRAMディスク(initramfs)を読み込みます。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BOOT_IMAGE=/boot/vmlinuz-4.19.0-9-amd64</span><br></pre></td></tr></table></figure>
+
+<h2 id="Systemd-Kernel起動"><a href="#Systemd-Kernel起動" class="headerlink" title="Systemd - Kernel起動"></a>Systemd - Kernel起動</h2><p>Debian10は、SystemdでKernelを起動制御します。</p>
+<p>Systemdは「モジュール、起動スクリプト、初期化プロセス」と順番に起動します。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://wiki.debian.org/Debate/initsystem/systemd">Systemd positon statement</a></p>
+</blockquote>
+<p>モジュールとして「メモリ管理、プロセス管理、デバイスドライバー、システムコールとセキュリティ」をハンドルします。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://eng-entrance.com/linux_startup">Linuxの自動起動の設定方法を解説</a></p>
+</blockquote>
+<p>Systemdの起動パフォーマンスは、コマンドsystemd-analyzeで確認できます。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.linuxmaster.jp/linux_skill/2020/02/linuxsystemd-analyze.html">Linux起動パフォーマンスを確認する(systemd-analyze)</a></p>
+</blockquote>
+<h2 id="systemd-analyze"><a href="#systemd-analyze" class="headerlink" title="systemd-analyze"></a>systemd-analyze</h2><p><strong>起動合計時間</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemd-analyze</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Startup finished in 2.729s (kernel) + 1min 2.812s (userspace) = 1min 5.542s </span><br><span class="line">graphical.target reached after 1min 2.663s in userspace</span><br></pre></td></tr></table></figure>
+
+<p><strong>モジュールごとの起動時間</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemd-analyze blame</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">37.252s plymouth-quit-wait.service                           </span><br><span class="line">14.012s snapd.service                                        </span><br><span class="line">13.423s dev-sda2.device                                      </span><br><span class="line">13.061s networkd-dispatcher.service                          </span><br><span class="line"> 9.753s accounts-daemon.service                              </span><br><span class="line"> 8.775s udisks2.service                                      </span><br><span class="line"> 7.194s NetworkManager-wait-online.service                   </span><br><span class="line"> 7.140s polkit.service                                       </span><br><span class="line"> 6.611s systemd-journal-flush.service                        </span><br><span class="line"> 6.254s dev-loop6.device                                     </span><br><span class="line"> 5.819s NetworkManager.service                               </span><br><span class="line"> 5.776s dev-loop3.device                                     </span><br><span class="line"> 5.723s dev-loop5.device                                     </span><br><span class="line"> 5.622s dev-loop4.device                                     </span><br><span class="line"> 5.489s dev-loop1.device                                     </span><br><span class="line"> 5.380s dev-loop2.device                                     </span><br><span class="line"> 5.346s dev-loop0.device                                     </span><br><span class="line"> 5.334s avahi-daemon.service                                 </span><br><span class="line"> 5.198s switcheroo-control.service                           </span><br><span class="line"> 5.189s thermald.service                                     </span><br><span class="line"> 5.187s systemd-logind.service                               </span><br><span class="line"> 5.182s wpa_supplicant.service                               </span><br><span class="line"> 4.199s systemd-udevd.service                                </span><br><span class="line"> 3.150s systemd-resolved.service                             </span><br><span class="line"> 3.075s gpu-manager.service                                  </span><br><span class="line"> 2.969s ModemManager.service                                 </span><br><span class="line"> 2.196s rsyslog.service                                      </span><br><span class="line"> 2.183s grub-initrd-fallback.service                         </span><br><span class="line"> 2.005s plymouth-start.service                               </span><br><span class="line"> 1.970s apport.service                                       </span><br><span class="line"> 1.911s grub-common.service                                  </span><br><span class="line"> 1.697s packagekit.service                                   </span><br><span class="line"> 1.527s gdm.service                                          </span><br><span class="line"> 1.166s e2scrub_reap.service                                 </span><br><span class="line"> 1.080s pppd-dns.service                                     </span><br><span class="line"> 1.043s systemd-modules-load.service                         </span><br><span class="line">  911ms systemd-tmpfiles-setup.service                       </span><br><span class="line">  843ms apparmor.service                                     </span><br><span class="line">  748ms systemd-sysusers.service                             </span><br><span class="line">  615ms snap-core18-1705.mount                               </span><br><span class="line">  590ms systemd-tmpfiles-setup-dev.service                   </span><br><span class="line">  582ms systemd-sysctl.service                               </span><br><span class="line">  581ms snap-core18-1754.mount                               </span><br><span class="line">  564ms keyboard-setup.service                               </span><br><span class="line">  564ms systemd-journald.service                             </span><br><span class="line">  560ms modprobe@drm.service                                 </span><br><span class="line">  545ms systemd-udev-trigger.service                         </span><br><span class="line">  530ms systemd-timesyncd.service                            </span><br><span class="line">  520ms upower.service                                       </span><br><span class="line">  498ms snap-gnome\x2d3\x2d34\x2d1804-24.mount               </span><br><span class="line">  489ms ufw.service                                          </span><br><span class="line">  483ms snapd.seeded.service                                 </span><br><span class="line">  480ms user@1000.service                                    </span><br><span class="line">  473ms systemd-random-seed.service                          </span><br><span class="line">  456ms snap-gnome\x2d3\x2d34\x2d1804-33.mount               </span><br><span class="line">  450ms snapd.apparmor.service                               </span><br><span class="line">  430ms swapfile.swap                                        </span><br><span class="line">  286ms kerneloops.service                                   </span><br><span class="line">  281ms snap-gtk\x2dcommon\x2dthemes-1506.mount              </span><br><span class="line">  237ms colord.service                                       </span><br><span class="line">  216ms systemd-fsck@dev-disk-by\x2duuid-07B7\x2d632A.service</span><br><span class="line">  173ms plymouth-read-write.service                          </span><br><span class="line">  163ms systemd-remount-fs.service                           </span><br><span class="line">  146ms setvtrgb.service                                     </span><br><span class="line">  140ms snap-snap\x2dstore-433.mount                         </span><br><span class="line">  113ms kmod-static-nodes.service                            </span><br><span class="line">  112ms snap-snapd-7264.mount                                </span><br><span class="line">   84ms dev-hugepages.mount                                  </span><br><span class="line">   83ms dev-mqueue.mount                                     </span><br><span class="line">   83ms systemd-update-utmp.service                          </span><br><span class="line">   82ms sys-kernel-debug.mount                               </span><br><span class="line">   81ms sys-kernel-tracing.mount                             </span><br><span class="line">   74ms openvpn.service                                      </span><br><span class="line">   67ms console-setup.service                                </span><br><span class="line">   40ms boot-efi.mount                                       </span><br><span class="line">   36ms rtkit-daemon.service                                 </span><br><span class="line">   28ms systemd-user-sessions.service                        </span><br><span class="line">   26ms user-runtime-dir@1000.service                        </span><br><span class="line">   16ms alsa-restore.service                                 </span><br><span class="line">   14ms systemd-update-utmp-runlevel.service                 </span><br><span class="line">    4ms sys-fs-fuse-connections.mount                        </span><br><span class="line">    3ms sys-kernel-config.mount                              </span><br><span class="line">    1ms snapd.socket          </span><br></pre></td></tr></table></figure>
+
+
+<h2 id="dmesg-Kernel出力メッセージ"><a href="#dmesg-Kernel出力メッセージ" class="headerlink" title="dmesg - Kernel出力メッセージ"></a>dmesg - Kernel出力メッセージ</h2><p>Kernelからの出力メッセージはコマンドdmesgで確認でき、「正常起動、もしくは警告・エラー」といった情報を読み取れます。</p>
+<p>コマンド<code>dmesg | grep -i err</code>で確認できるエラーメッセージは次のとおりです。</p>
+<h3 id="1-独立ハードウエア監視-IPMI"><a href="#1-独立ハードウエア監視-IPMI" class="headerlink" title="1. 独立ハードウエア監視 - IPMI"></a>1. 独立ハードウエア監視 - IPMI</h3><p>IPMIは、OSから分離・独立してハードウエアの管理と監視を行う機能です。</p>
+<figure class="highlight plaintext"><figcaption><span>'dmesg | grep -i err'</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[    0.158866] ipmi:dmi: Base address is zero, assuming no IPMI interface</span><br></pre></td></tr></table></figure>
+
+<p>「本機には、IPMIインタフェースがない」というメッセージを出力しています。</p>
+<h3 id="2-電源制御-ACPI-error"><a href="#2-電源制御-ACPI-error" class="headerlink" title="2. 電源制御 - ACPI error"></a>2. 電源制御 - ACPI error</h3><p>ACPIは、OSの電源管理制御機能です。</p>
+<figure class="highlight plaintext"><figcaption><span>'dmesg | grep -i err'</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[    0.000000] ACPI: IRQ0 used by override.</span><br><span class="line">[    0.000000] ACPI: IRQ9 used by override.</span><br><span class="line">[    0.023902] ACPI: Using IOAPIC for interrupt routing</span><br><span class="line">[    0.033206] ACPI: PCI Interrupt Link [LNKA] (IRQs 3 4 5 6 7 10 *11 12 14 15)</span><br><span class="line">[    0.033250] ACPI: PCI Interrupt Link [LNKB] (IRQs 3 4 *5 6 7 10 11 12 14 15)</span><br><span class="line">[    0.033295] ACPI: PCI Interrupt Link [LNKC] (IRQs 3 4 5 6 *10 11 12 14 15)</span><br><span class="line">[    0.033344] ACPI: PCI Interrupt Link [LNKD] (IRQs 3 4 5 6 10 *11 12 14 15)</span><br><span class="line">[    0.033386] ACPI: PCI Interrupt Link [LNKE] (IRQs *3 4 5 6 7 10 11 12 14 15)</span><br><span class="line">[    0.033431] ACPI: PCI Interrupt Link [LNKF] (IRQs 3 4 5 6 7 10 11 12 14 15) *0</span><br><span class="line">[    0.033478] ACPI: PCI Interrupt Link [LNKG] (IRQs 3 4 5 6 *7 10 11 12 14 15)</span><br><span class="line">[    0.033523] ACPI: PCI Interrupt Link [LNKH] (IRQs 3 4 5 6 7 *10 11 12 14 15)</span><br></pre></td></tr></table></figure>
+
+<p>通常の使用では問題がないが、OSの電源管理制御は使用できない可能性があり、OS側のKernelを読み込まないようにする、BIOSを更新する、といった対策が必要となります。</p>
+<h2 id="その他のメッセージ"><a href="#その他のメッセージ" class="headerlink" title="その他のメッセージ"></a>その他のメッセージ</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://bbs.archlinux.org/viewtopic.php?id=157969">BIOSのアップデートを要求するメッセージ</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[    0.008659] core: PEBS disabled due to CPU errata, please upgrade microcode</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://lore.kernel.org/patchwork/patch/518426/">BIOSのHyperThreadThread機能</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[    0.017374] core: PMU erratum BJ122, BV98, HSD29 worked around, HT is on</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.suse.com/support/kb/doc/?id=000018235">チップセット関係</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[    0.055503] pci 0000:00:02.0: BIOS left Intel GPU interrupts enabled; disabling</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://community.intel.com/t5/Embedded-Intel-Core-Processors/i801-smbus-interrupt-timeout-on-Broadwell-DE/td-p/215987">タッチパネルi2c関係（本機にはない）</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[    1.305336] i801_smbus 0000:00:1f.3: SMBus using PCI interrupt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://forums.ubuntulinux.jp/viewtopic.php?id=20361">イーサネットドライバ読込</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[    1.324761] e1000e 0000:00:19.0: Interrupt Throttling Rate (ints/sec) set to dynamic conservative mode</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://qastack.jp/ubuntu/563668/how-to-fix-ext4-fs-sda1-re-mounted-opts-errors-remount-ro">読み取り専用で再マウント</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[    6.103439] EXT4-fs (sda2): re-mounted. Opts: errors=remount-ro</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://tech.akat.info/?p=1770">性能解析ツールの調整不足</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[16604.904299] perf: interrupt took too long (2510 &gt; 2500), lowering kernel.perf_event_max_sample_rate to 79500</span><br><span class="line">[21866.505539] perf: interrupt took too long (3139 &gt; 3137), lowering kernel.perf_event_max_sample_rate to 63500</span><br></pre></td></tr></table></figure>
+
+<h2 id="起動しているが、時間のかかるモジュール"><a href="#起動しているが、時間のかかるモジュール" class="headerlink" title="起動しているが、時間のかかるモジュール"></a>起動しているが、時間のかかるモジュール</h2><p>DHCP、固定IP、IPv6については、PC本体だけの問題でなく、ルーターとのやりとりに時間がかかっているため、これはLANの整備を進める必要があると分かりました。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>Linuxの安定起動・起動高速化を図るため、Kernelの挙動についてdmesgで調査し、できる限りの対策を採ってみました。</p>
+
+</div>
+
+
+                    </main>
+                </div>
+                <div class="col-12 col-lg-4 mx-0 my-0 px-0">
+                    <aside class="card mx-2 my-2 sidebar-sticky">
+    <div class="row mx-3 mt-3 mb-0">
+    </div>
+    
+        <section class="row mx-auto mx-3 mt-3 mb-0">
+    <div class="col-12">
+        <p class="h5 text-center">目次</p>
+    </div>
+    <div class="col-12">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB-Linux%E3%81%AE%E4%B8%AD%E6%A0%B8%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E7%BE%A4"><span class="toc-number">1.</span> <span class="toc-text">カーネル - Linuxの中核プログラム群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%99%E3%83%BC%E3%82%B9%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AE%E6%A7%8B%E6%88%90"><span class="toc-number">2.</span> <span class="toc-text">ベースマシンの構成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%8F%E3%83%BC%E3%83%89%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%B5%B7%E5%8B%95%E6%A7%8B%E6%88%90"><span class="toc-number">3.</span> <span class="toc-text">ハードディスクの起動構成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GRUB-%E3%83%96%E3%83%BC%E3%83%88%E3%83%AD%E3%83%BC%E3%83%80%E3%83%BC"><span class="toc-number">3.1.</span> <span class="toc-text">GRUB - ブートローダー</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Systemd-Kernel%E8%B5%B7%E5%8B%95"><span class="toc-number">4.</span> <span class="toc-text">Systemd - Kernel起動</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#systemd-analyze"><span class="toc-number">5.</span> <span class="toc-text">systemd-analyze</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dmesg-Kernel%E5%87%BA%E5%8A%9B%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8"><span class="toc-number">6.</span> <span class="toc-text">dmesg - Kernel出力メッセージ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%8B%AC%E7%AB%8B%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A8%E3%82%A2%E7%9B%A3%E8%A6%96-IPMI"><span class="toc-number">6.1.</span> <span class="toc-text">1. 独立ハードウエア監視 - IPMI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%9B%BB%E6%BA%90%E5%88%B6%E5%BE%A1-ACPI-error"><span class="toc-number">6.2.</span> <span class="toc-text">2. 電源制御 - ACPI error</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8"><span class="toc-number">7.</span> <span class="toc-text">その他のメッセージ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%B7%E5%8B%95%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%8C%E3%80%81%E6%99%82%E9%96%93%E3%81%AE%E3%81%8B%E3%81%8B%E3%82%8B%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB"><span class="toc-number">8.</span> <span class="toc-text">起動しているが、時間のかかるモジュール</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%81%BE%E3%81%A8%E3%82%81"><span class="toc-number">9.</span> <span class="toc-text">まとめ</span></a></li></ol>
+    <div
+</section>
+
+        <div class="mx-3 my-0">
+    <hr>
+</div>
+
+    
+    <div class="h6 col-12 text-center mb-3">
+        <a href="#">
+            <i class="fa fa-long-arrow-up mr-2"></i>トップに戻る
+        </a>
+    </div>
+</aside>
+
+                </div>
+            </div>
+		</div>
+		<!-- Footer -->
+<div class="container">
+    <footer class="text-center mt-5 py-5">
+        
+
+    <a href="https://twitter.com/?lang=en" target="_blank"><i class="fa fa-twitter mx-2"></i></a>
+
+
+
+    <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube mx-2"></i></a>
+
+
+    <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram mx-2"></i></a>
+
+
+
+
+
+
+
+
+        <p class="h6 text-center mx-0 mt-5 mb-0">
+              Contents and Hexo theme, Copyright 2020 - by HamKaz
+        </p>
+    </footer>
+</div>
+
+		<!-- Include Javascript -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  </body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+
+    <title>文字表示と文字入力 システムフォント・入力メソッド - hamkazの技術ブログ</title>
+
+    
+        <meta name="description" content="プログラミングや文章作成を効率よく行うためには、表示フォントと入力メソッドの整備が欠かせません。Linux Debian10のデスクトップ環境Cinnamonで、システムフォントと入力メソッドをユーザー設定してみました。">
+    
+
+    
+        <meta name="author" content="HamKaz">
+    
+
+    
+        <meta property="og:title" content="文字表示と文字入力 システムフォント・入力メソッド"/>
+    
+
+    <meta property="og:site_name" content="hamkazの技術ブログ"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="/css/styles.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <div class="container">
+    <header class="navbar navbar-light pt-3">
+        <a class="navbar-brand navbar-toggleable-sm" href="/">
+            <span class="title d-none d-sm-block">hamkazの技術ブログ</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center mt-3 mt-md-0" id="navbarCollapse">
+            <span class="title d-block d-sm-none">hamkazの技術ブログ</span>
+            <ul class="navbar-nav ml-auto my-auto">
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                
+            </ul>
+            <hr class="hidden-md-up" />
+        </div>
+    </header>
+</div>
+
+        <div class="container">
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-0 my-0 px-0">
+                    <main class="card mx-2 my-2 sidebar-sticky">
+                        <div class="row mx-3 mt-3 mb-0">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 mx-auto mx-0 my-0 px-0">
+        <div class="flex">
+    <div class="flex-item">
+        <figure class="image-trim mb-0">
+            
+                
+                    <img src="/images/linux.png" alt="文字表示と文字入力 システムフォント・入力メソッド">
+                
+            
+        </figure>
+    </div>
+</div>
+    </div>
+</div>
+<div class="row mx-auto mx-3 my-0">
+    
+
+
+    <p class="h4 text-center text-md-left mx-0 mt-3 mb-0">
+        文字表示と文字入力 システムフォント・入力メソッド
+    </p>
+
+
+</div>
+<div class="row mx-auto mx-3 mt-2 mb-0">
+    
+    <p class="date mx-3 my-0">
+        2020-05-18
+    </p>
+
+
+</div>
+<nav class="row mx-auto mx-3 mt-2 mb-0">
+    
+
+<ul class="mx-0 my-0">
+    <li>
+        
+            <a href="/" target="_self">
+                <i class="fa fa-home"></i>
+                home
+            </a>
+        
+            <a href="/categories/etc-Linuxプログラミング実践/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                etc-Linuxプログラミング実践
+            </a>
+        
+            <a href="/categories/etc-Linuxプログラミング実践/b-Linuxの操作Tips/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                b-Linuxの操作Tips
+            </a>
+        
+    </li>
+</ul>
+
+</nav>
+
+<div class="mx-3 my-0">
+    <hr>
+</div>
+
+
+<div class="mx-3 my-0">
+    <h2 id="Linuxの入力環境整備"><a href="#Linuxの入力環境整備" class="headerlink" title="Linuxの入力環境整備"></a>Linuxの入力環境整備</h2><p>プログラミングや文章をLinux上で効率よく行うためには、フォントと入力方法の整備が欠かせません。文字入力に関する設定でシステムフォントや入力メソッドの整備を行うことができます。</p>
+<h2 id="システムフォント"><a href="#システムフォント" class="headerlink" title="システムフォント"></a>システムフォント</h2><p>Linuxのインストール直後のデフォルト状態で英語と日本語を混在表示させると、フォント表示のバランスが崩れることがあります。</p>
+<p>表示バランスの崩れは、アルファベットのフォントと日本語フォントが異なるデフォルト設定であることが原因ですが、システムフォントをカスタム設定できます。</p>
+<p>システムフォント設定を行うためには、メニュー &gt; 設定 &gt; フォントを開いて、フォントの選択から、デフォルト・デスクトップ・ウィンドウタイトル・ドキュメントの各フォントをカスタム設定します。</p>
+<p>今回上記フォントを「VL Pゴシック Regular 10pt」とし、等幅フォントを「VLゴシック Regular 10pt」に設定しました。</p>
+<h2 id="表示フォントと入力メソッドの整備"><a href="#表示フォントと入力メソッドの整備" class="headerlink" title="表示フォントと入力メソッドの整備"></a>表示フォントと入力メソッドの整備</h2><p>Linux Debian10のインストール当初、アルファベットと日本語フォントを混在させて表示すると文字バランスが崩れていました。そこで、日英フォントの混在表示時に統一感が出るようフォント設定を統一してみました。</p>
+<p>また英字入力と日本語入力をスムーズに切り替えるため、入力メソッドをibusからMozcに変更しました。Mozcのキーボードショートカット設定を変更して、変換に関するショートカットキーをスペースキーの周りに配置しました。</p>
+<h2 id="表示フォント設定"><a href="#表示フォント設定" class="headerlink" title="表示フォント設定"></a>表示フォント設定</h2><p>Linux Debian10ではGNOME、KDEやCinnamonなどのデスクトップ環境を選ぶことができます。</p>
+<p>デスクトップ環境Cinnamonのインストール当初、アルファベットと日本語フォントを混在表示したところ文字バランスが崩れていたため、フォントのバランスが崩れる原因について調べてみました。</p>
+<p>Cinnamonのフォントの初期設定は、アルファベット用のフォントと、日本語用のフォントがそれぞれ異なり、これが原因であることが分かりました。</p>
+<p>そのため、システム表示バランスの崩れはフォント設定を統一化すれば治ることがわかったため、デフォルト、デスクトップ、ドキュメント、ウィンドウタイトル、それぞれフォント設定を修正しました。</p>
+<h3 id="システムフォント設定"><a href="#システムフォント設定" class="headerlink" title="システムフォント設定"></a>システムフォント設定</h3><p>メニュー &gt; 設定から「フォント」を開き「フォントの選択」からフォントを変更します。</p>
+<h3 id="フォント設定内容"><a href="#フォント設定内容" class="headerlink" title="フォント設定内容"></a>フォント設定内容</h3><p>フォント設定を統一して、アルファベットと日本語の混在時に違和感がないようにしました。</p>
+<p><strong>デフォルト・デスクトップ・ウィンドウタイトル・ドキュメント</strong></p>
+<p>VL Pゴシック Regular 10pt</p>
+<p><strong>等幅フォント</strong></p>
+<p>VLゴシック Regular 10pt</p>
+<h2 id="入力メソッド"><a href="#入力メソッド" class="headerlink" title="入力メソッド"></a>入力メソッド</h2><p>Linuxでは入力メソッドをibusやfcitx、Mozcと切り替えることができます。</p>
+<p>LinuxのDebian&#x2F;Ubuntu系では、デフォルトの入力メソッドにibusが設定されます。デフォルトの入力メソッドはibusとなっており、アルファベットと日本語の入力切り替えを<kbd>半角/全角</kbd>キーで行います。</p>
+<p>入力操作の効率を考えた場合、左上隅の<kbd>半角/全角</kbd>キーを押すのではなく、スペースキーの周辺のショートカットキーで切り替えた方が手の動きが少なく、スムーズに操作できます。</p>
+<p>遊んでいる親指を有効に使って入力切り替えが行えるよう、スペースキーの両サイドにある<kbd>無変換</kbd>キー・<kbd>変換</kbd>キーにの<kbd>半角/全角</kbd>キーの切り替え機能を割り付けてみました。</p>
+<p>キーボード割付の変更はibusではキーバインドを変更するしかなかったのですが、Debian10では入力メソッドをibusからMozcに変更でき、Mozcの機能を利用してキーボードショートカットを変更・追加・削除してみました。</p>
+<h3 id="入力メソッドの変更を有効化"><a href="#入力メソッドの変更を有効化" class="headerlink" title="入力メソッドの変更を有効化"></a>入力メソッドの変更を有効化</h3><p><strong>手順</strong></p>
+<ul>
+<li>入力メソッドのユーザー設定を有効にし、Mozcを有効にする</li>
+</ul>
+<p><strong>設定方法</strong></p>
+<p>メニュー &gt; 設定から、（白いアイコンの）入力メソッドを表示し、以下のように設定します。</p>
+<ul>
+<li>(1) インプットメソッド設定 &gt; OK</li>
+<li>(2) 明示的にユーザー設定 &gt; YES</li>
+<li>(3) ユーザー設定 &gt; default</li>
+<li>(4) defaultの確認画面 &gt; OK</li>
+</ul>
+<h3 id="ibusからMozcに変更する"><a href="#ibusからMozcに変更する" class="headerlink" title="ibusからMozcに変更する"></a>ibusからMozcに変更する</h3><p><strong>手順</strong></p>
+<ul>
+<li>入力メソッドをMozcに変更し、キーボードショートカットを設定</li>
+</ul>
+<p><strong>設定方法</strong></p>
+<p>まずメニュー &gt; 設定から、（青いアイコンの）入力メソッドを表示します。</p>
+<p>次に、左側にあるメニューグループから、mozc key bindingsを選択して、以下のように設定します。</p>
+<ul>
+<li>(1) [Mozc] on -&gt; Henkan_Mode（変換キー）を追加</li>
+<li>(2) [Mozc] off -&gt; Muhenkan（無変換キー）を追加</li>
+</ul>
+<h3 id="その他の入力モード切替"><a href="#その他の入力モード切替" class="headerlink" title="その他の入力モード切替"></a>その他の入力モード切替</h3><p>入力モードの切り替えは、<kbd>無変換</kbd>と<kbd>変換</kbd>を押して切り替える以外にも、<kbd>SHIFT</kbd>と<kbd>SPACE</kbd>を同時に押して切り替えることができます。</p>
+<p>３言語以上の多言語を切り替える場合には、<kbd>SHIFT</kbd>と<kbd>SPACE</kbd>を繰り返し押し、順次切り替えます。</p>
+<h3 id="キーバインドの確認方法"><a href="#キーバインドの確認方法" class="headerlink" title="キーバインドの確認方法"></a>キーバインドの確認方法</h3><p>キーの組み合わせや特殊キーの割付など、現在のキーバインドを調べるにはコマンド<code>xmodmap -pke</code>を用いて行います。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>表示フォントと入力メソッドの設定を適切に設定すると、入力作業に関する操作性が大幅に向上し、作業能率を大幅に向上させることができました。</p>
+
+</div>
+
+
+                    </main>
+                </div>
+                <div class="col-12 col-lg-4 mx-0 my-0 px-0">
+                    <aside class="card mx-2 my-2 sidebar-sticky">
+    <div class="row mx-3 mt-3 mb-0">
+    </div>
+    
+        <section class="row mx-auto mx-3 mt-3 mb-0">
+    <div class="col-12">
+        <p class="h5 text-center">目次</p>
+    </div>
+    <div class="col-12">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E3%81%AE%E5%85%A5%E5%8A%9B%E7%92%B0%E5%A2%83%E6%95%B4%E5%82%99"><span class="toc-number">1.</span> <span class="toc-text">Linuxの入力環境整備</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88"><span class="toc-number">2.</span> <span class="toc-text">システムフォント</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E7%A4%BA%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%81%A8%E5%85%A5%E5%8A%9B%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%81%AE%E6%95%B4%E5%82%99"><span class="toc-number">3.</span> <span class="toc-text">表示フォントと入力メソッドの整備</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E7%A4%BA%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E8%A8%AD%E5%AE%9A"><span class="toc-number">4.</span> <span class="toc-text">表示フォント設定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E8%A8%AD%E5%AE%9A"><span class="toc-number">4.1.</span> <span class="toc-text">システムフォント設定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E8%A8%AD%E5%AE%9A%E5%86%85%E5%AE%B9"><span class="toc-number">4.2.</span> <span class="toc-text">フォント設定内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A5%E5%8A%9B%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89"><span class="toc-number">5.</span> <span class="toc-text">入力メソッド</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E5%8A%9B%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%81%AE%E5%A4%89%E6%9B%B4%E3%82%92%E6%9C%89%E5%8A%B9%E5%8C%96"><span class="toc-number">5.1.</span> <span class="toc-text">入力メソッドの変更を有効化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ibus%E3%81%8B%E3%82%89Mozc%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B"><span class="toc-number">5.2.</span> <span class="toc-text">ibusからMozcに変更する</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E5%85%A5%E5%8A%9B%E3%83%A2%E3%83%BC%E3%83%89%E5%88%87%E6%9B%BF"><span class="toc-number">5.3.</span> <span class="toc-text">その他の入力モード切替</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%AD%E3%83%BC%E3%83%90%E3%82%A4%E3%83%B3%E3%83%89%E3%81%AE%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95"><span class="toc-number">5.4.</span> <span class="toc-text">キーバインドの確認方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%81%BE%E3%81%A8%E3%82%81"><span class="toc-number">6.</span> <span class="toc-text">まとめ</span></a></li></ol>
+    <div
+</section>
+
+        <div class="mx-3 my-0">
+    <hr>
+</div>
+
+    
+    <div class="h6 col-12 text-center mb-3">
+        <a href="#">
+            <i class="fa fa-long-arrow-up mr-2"></i>トップに戻る
+        </a>
+    </div>
+</aside>
+
+                </div>
+            </div>
+		</div>
+		<!-- Footer -->
+<div class="container">
+    <footer class="text-center mt-5 py-5">
+        
+
+    <a href="https://twitter.com/?lang=en" target="_blank"><i class="fa fa-twitter mx-2"></i></a>
+
+
+
+    <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube mx-2"></i></a>
+
+
+    <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram mx-2"></i></a>
+
+
+
+
+
+
+
+
+        <p class="h6 text-center mx-0 mt-5 mb-0">
+              Contents and Hexo theme, Copyright 2020 - by HamKaz
+        </p>
+    </footer>
+</div>
+
+		<!-- Include Javascript -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  </body>
+</html>

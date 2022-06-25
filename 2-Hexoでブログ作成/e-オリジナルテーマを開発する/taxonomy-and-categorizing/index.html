@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+
+    <title>サイト設計（タクソノミー）を考える - hamkazの技術ブログ</title>
+
+    
+        <meta name="description" content="Hexoでのカテゴリー分類と一覧ページ">
+    
+
+    
+        <meta name="author" content="HamKaz">
+    
+
+    
+        <meta property="og:title" content="サイト設計（タクソノミー）を考える"/>
+    
+
+    <meta property="og:site_name" content="hamkazの技術ブログ"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="/css/styles.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <div class="container">
+    <header class="navbar navbar-light pt-3">
+        <a class="navbar-brand navbar-toggleable-sm" href="/">
+            <span class="title d-none d-sm-block">hamkazの技術ブログ</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center mt-3 mt-md-0" id="navbarCollapse">
+            <span class="title d-block d-sm-none">hamkazの技術ブログ</span>
+            <ul class="navbar-nav ml-auto my-auto">
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                
+            </ul>
+            <hr class="hidden-md-up" />
+        </div>
+    </header>
+</div>
+
+        <div class="container">
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-0 my-0 px-0">
+                    <main class="card mx-2 my-2 sidebar-sticky">
+                        <div class="row mx-3 mt-3 mb-0">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 mx-auto mx-0 my-0 px-0">
+        <div class="flex">
+    <div class="flex-item">
+        <figure class="image-trim mb-0">
+            
+                
+                    <img src="/images/hexo.png" alt="サイト設計（タクソノミー）を考える">
+                
+            
+        </figure>
+    </div>
+</div>
+    </div>
+</div>
+<div class="row mx-auto mx-3 my-0">
+    
+
+
+    <p class="h4 text-center text-md-left mx-0 mt-3 mb-0">
+        サイト設計（タクソノミー）を考える
+    </p>
+
+
+</div>
+<div class="row mx-auto mx-3 mt-2 mb-0">
+    
+    <p class="date mx-3 my-0">
+        2020-07-11
+    </p>
+
+
+</div>
+<nav class="row mx-auto mx-3 mt-2 mb-0">
+    
+
+<ul class="mx-0 my-0">
+    <li>
+        
+            <a href="/" target="_self">
+                <i class="fa fa-home"></i>
+                home
+            </a>
+        
+            <a href="/categories/2-Hexoでブログ作成/" target="_self">
+                <i class=""></i>
+                2-Hexoでブログ作成
+            </a>
+        
+            <a href="/categories/2-Hexoでブログ作成/e-オリジナルテーマを開発する/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                e-オリジナルテーマを開発する
+            </a>
+        
+    </li>
+</ul>
+
+</nav>
+
+<div class="mx-3 my-0">
+    <hr>
+</div>
+
+
+<div class="mx-3 my-0">
+    <h3 id="パーマリンク・エイリアス・日本語・英語"><a href="#パーマリンク・エイリアス・日本語・英語" class="headerlink" title="パーマリンク・エイリアス・日本語・英語"></a>パーマリンク・エイリアス・日本語・英語</h3><p>パーマリンク：ブラウザのアドレスボックスに表示される</p>
+<p>パーマリンクは通常タイトル名で定義されるが、ユーザー定義による別名をつけることもできる。そのようにすると、タイトル名：日本語、パーマリンク：ローマ字とすることができる。</p>
+<p>フロントマターにユーザー定義<code>pid</code>を作成し、コンフィグでパーマリンク設定を<code>/:pid</code>とすると、生成されるパーマリンクがpidで指定したものに置き換わる。</p>
+<p>他の方法として、プラグインhexo-generate-aliasを使う方法もある。</p>
+<p>itle: ‘Hexoでサイトマップと検索’<br>date: 2020-07-11 15:30:00<br>tags:</p>
+<ul>
+<li>静的サイトジェネレーター</li>
+<li>Hexo</li>
+<li>サイトマップ<br>categories:</li>
+<li>Hexo</li>
+<li>Website<br>excerpt: ‘Hexoでサイトマップと検索’<br>cover_image : images&#x2F;hexo.png<br>pid: taxonomy-and-sitemap</li>
+</ul>
+<h2 id="Hexoのブログで欲しい機能"><a href="#Hexoのブログで欲しい機能" class="headerlink" title="Hexoのブログで欲しい機能"></a>Hexoのブログで欲しい機能</h2><h3 id="サイトマップ"><a href="#サイトマップ" class="headerlink" title="サイトマップ"></a>サイトマップ</h3><p>schema.org形式</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-generator-sitemap">hexo-generator-sitemap</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://bitto.jp/posts/%E6%8A%80%E8%A1%93/Hexo/hexo-sitemap/">hexoでサイトマップを作成</a></p>
+</blockquote>
+<h3 id="検索"><a href="#検索" class="headerlink" title="検索"></a>検索</h3><p><code>hexo-generator-search</code>プラグインで、search.xmlを作成する。あるいはGoogle SearchConsoleに検索機能を肩代わりさせる。</p>
+<h2 id="パーマリンクの構成、タクソノミー"><a href="#パーマリンクの構成、タクソノミー" class="headerlink" title="パーマリンクの構成、タクソノミー"></a>パーマリンクの構成、タクソノミー</h2><p>Permalinkをどのように構成するか？は、URLをどのように構成するか？であるとか、rootをどうするか？といったことを考える必要がある。</p>
+<p>またパーマリンクは、パンくずリストにも直結する重要な問題なので、次のことを意識する。</p>
+<ul>
+<li>sourceのツリー構造（mdが置かれる場所）</li>
+<li>publicのツリー構造（hexo generate（コンパイル後に））</li>
+</ul>
+<p>コンフィグやフロントマターに反映する。</p>
+
+</div>
+
+
+                    </main>
+                </div>
+                <div class="col-12 col-lg-4 mx-0 my-0 px-0">
+                    <aside class="card mx-2 my-2 sidebar-sticky">
+    <div class="row mx-3 mt-3 mb-0">
+    </div>
+    
+        <section class="row mx-auto mx-3 mt-3 mb-0">
+    <div class="col-12">
+        <p class="h5 text-center">目次</p>
+    </div>
+    <div class="col-12">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%91%E3%83%BC%E3%83%9E%E3%83%AA%E3%83%B3%E3%82%AF%E3%83%BB%E3%82%A8%E3%82%A4%E3%83%AA%E3%82%A2%E3%82%B9%E3%83%BB%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%BB%E8%8B%B1%E8%AA%9E"><span class="toc-number">1.</span> <span class="toc-text">パーマリンク・エイリアス・日本語・英語</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E3%81%AE%E3%83%96%E3%83%AD%E3%82%B0%E3%81%A7%E6%AC%B2%E3%81%97%E3%81%84%E6%A9%9F%E8%83%BD"><span class="toc-number"></span> <span class="toc-text">Hexoのブログで欲しい機能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%82%B5%E3%82%A4%E3%83%88%E3%83%9E%E3%83%83%E3%83%97"><span class="toc-number">1.</span> <span class="toc-text">サイトマップ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A4%9C%E7%B4%A2"><span class="toc-number">2.</span> <span class="toc-text">検索</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%83%91%E3%83%BC%E3%83%9E%E3%83%AA%E3%83%B3%E3%82%AF%E3%81%AE%E6%A7%8B%E6%88%90%E3%80%81%E3%82%BF%E3%82%AF%E3%82%BD%E3%83%8E%E3%83%9F%E3%83%BC"><span class="toc-number"></span> <span class="toc-text">パーマリンクの構成、タクソノミー</span></a>
+    <div
+</section>
+
+        <div class="mx-3 my-0">
+    <hr>
+</div>
+
+    
+    <div class="h6 col-12 text-center mb-3">
+        <a href="#">
+            <i class="fa fa-long-arrow-up mr-2"></i>トップに戻る
+        </a>
+    </div>
+</aside>
+
+                </div>
+            </div>
+		</div>
+		<!-- Footer -->
+<div class="container">
+    <footer class="text-center mt-5 py-5">
+        
+
+    <a href="https://twitter.com/?lang=en" target="_blank"><i class="fa fa-twitter mx-2"></i></a>
+
+
+
+    <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube mx-2"></i></a>
+
+
+    <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram mx-2"></i></a>
+
+
+
+
+
+
+
+
+        <p class="h6 text-center mx-0 mt-5 mb-0">
+              Contents and Hexo theme, Copyright 2020 - by HamKaz
+        </p>
+    </footer>
+</div>
+
+		<!-- Include Javascript -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  </body>
+</html>

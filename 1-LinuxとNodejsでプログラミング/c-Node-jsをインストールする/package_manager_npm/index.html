@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+
+    <title>Node.jsのパッケージ管理npmを理解する - hamkazの技術ブログ</title>
+
+    
+        <meta name="description" content="Node.jsのパッケージ管理は、npmとYarnになります。今回npmとYarnをインストールし、Node.jsのパッケージ管理への理解を深めます。またnpmコマンド実行時の警告・エラー回避方法についても調べました。">
+    
+
+    
+        <meta name="author" content="HamKaz">
+    
+
+    
+        <meta property="og:title" content="Node.jsのパッケージ管理npmを理解する"/>
+    
+
+    <meta property="og:site_name" content="hamkazの技術ブログ"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="/css/styles.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <div class="container">
+    <header class="navbar navbar-light pt-3">
+        <a class="navbar-brand navbar-toggleable-sm" href="/">
+            <span class="title d-none d-sm-block">hamkazの技術ブログ</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center mt-3 mt-md-0" id="navbarCollapse">
+            <span class="title d-block d-sm-none">hamkazの技術ブログ</span>
+            <ul class="navbar-nav ml-auto my-auto">
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                
+            </ul>
+            <hr class="hidden-md-up" />
+        </div>
+    </header>
+</div>
+
+        <div class="container">
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-0 my-0 px-0">
+                    <main class="card mx-2 my-2 sidebar-sticky">
+                        <div class="row mx-3 mt-3 mb-0">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 mx-auto mx-0 my-0 px-0">
+        <div class="flex">
+    <div class="flex-item">
+        <figure class="image-trim mb-0">
+            
+                
+                    <img src="/images/npm.jpg" alt="Node.jsのパッケージ管理npmを理解する">
+                
+            
+        </figure>
+    </div>
+</div>
+    </div>
+</div>
+<div class="row mx-auto mx-3 my-0">
+    
+
+
+    <p class="h4 text-center text-md-left mx-0 mt-3 mb-0">
+        Node.jsのパッケージ管理npmを理解する
+    </p>
+
+
+</div>
+<div class="row mx-auto mx-3 mt-2 mb-0">
+    
+    <p class="date mx-3 my-0">
+        2020-05-16
+    </p>
+
+
+</div>
+<nav class="row mx-auto mx-3 mt-2 mb-0">
+    
+
+<ul class="mx-0 my-0">
+    <li>
+        
+            <a href="/" target="_self">
+                <i class="fa fa-home"></i>
+                home
+            </a>
+        
+            <a href="/categories/1-LinuxとNodejsでプログラミング/" target="_self">
+                <i class=""></i>
+                1-LinuxとNodejsでプログラミング
+            </a>
+        
+            <a href="/categories/1-LinuxとNodejsでプログラミング/c-Node-jsをインストールする/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                c-Node-jsをインストールする
+            </a>
+        
+    </li>
+</ul>
+
+</nav>
+
+<div class="mx-3 my-0">
+    <hr>
+</div>
+
+
+<div class="mx-3 my-0">
+    <h2 id="npm-Node-jsのパッケージ管理"><a href="#npm-Node-jsのパッケージ管理" class="headerlink" title="npm - Node.jsのパッケージ管理"></a>npm - Node.jsのパッケージ管理</h2><p>npmには、オンラインリポジトリと、パッケージ管理のコマンドラインツールの２つを指す。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://nodejs.org/en/knowledge/getting-started/npm/what-is-npm/"></a></p>
+</blockquote>
+<p>今回、コマンドラインツールとしてのnpmについて説明します。</p>
+<h2 id="Node-jsのパッケージ管理-npm"><a href="#Node-jsのパッケージ管理-npm" class="headerlink" title="Node.jsのパッケージ管理 npm"></a>Node.jsのパッケージ管理 npm</h2><p>Node.jsの標準のパッケージ管理は、npmコマンドで行います。</p>
+<p>npmでは、<code>npm install</code>コマンドでインストールした場合、<em>プロジェクトのルートディレクトリ</em><br>のpackage.jsonというファイルにインストールしたプラグインが追記されます。</p>
+<h2 id="コマンドラインnpm実行時の警告・エラー"><a href="#コマンドラインnpm実行時の警告・エラー" class="headerlink" title="コマンドラインnpm実行時の警告・エラー"></a>コマンドラインnpm実行時の警告・エラー</h2><h3 id="1-npm-install-“npm-WARN-optional-SKIPPING-OPTIONAL-DEPENDENCY-fsevents…”"><a href="#1-npm-install-“npm-WARN-optional-SKIPPING-OPTIONAL-DEPENDENCY-fsevents…”" class="headerlink" title="1. npm install - “npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents…”"></a>1. npm install - “npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents…”</h3><p><strong>状況</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.13: wanted &#123;&quot;os&quot;:&quot;darwin&quot;,&quot;arch&quot;:&quot;any&quot;&#125; (current: &#123;&quot;os&quot;:&quot;linux&quot;,&quot;arch&quot;:&quot;x64&quot;&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/46929196/how-to-solve-npm-install-throwing-fsevents-warning-on-non-mac-os">How to solve npm install throwing fsevents warning on non-Mac OS?</a></p>
+</blockquote>
+<p><strong>原因</strong></p>
+<p>MacOS限定のモジュールがnpm installによって読み込まれた。</p>
+<p><strong>対策</strong></p>
+<p><code>OPTIONAL DEPENDENCY</code>と表示されて必要がないオプションモジュールなので、npm installから除外します。</p>
+<p><strong>対応方法</strong></p>
+<p>FoggyDay Oct 14’19 at 16:17のコメントを参照して、次のコマンドを実行します。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -f</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-npm-install-npm-fundの表示の意味は？"><a href="#2-npm-install-npm-fundの表示の意味は？" class="headerlink" title="2. npm install - npm fundの表示の意味は？"></a>2. npm install - npm fundの表示の意味は？</h3><p>パッケージの開発者への寄付を募るメッセージであり、npm fundコマンドを実行すると、どのパッケージが寄付対象であるか示してくれる。</p>
+<h3 id="3-npm-install-“found-1-low-severity-vulnerability”"><a href="#3-npm-install-“found-1-low-severity-vulnerability”" class="headerlink" title="3. npm install - “found 1 low severity vulnerability”"></a>3. npm install - “found 1 low severity vulnerability”</h3><p>npm installコマンド実行時に、脆弱性に関する警告が発生する。npm auditコマンドで、脆弱性のあるパッケージをリストアップする。</p>
+<p><strong>状況</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">                                                                          </span><br><span class="line">                       === npm audit security report ===                        </span><br><span class="line">                                                                                </span><br><span class="line">┌──────────────────────────────────────────────────────────────────────────────┐</span><br><span class="line">│                                Manual Review                                 │</span><br><span class="line">│            Some vulnerabilities require your attention to resolve            │</span><br><span class="line">│                                                                              │</span><br><span class="line">│         Visit https://go.npm.me/audit-guide for additional guidance          │</span><br><span class="line">└──────────────────────────────────────────────────────────────────────────────┘</span><br><span class="line">┌───────────────┬──────────────────────────────────────────────────────────────┐</span><br><span class="line">│ Low           │ Prototype Pollution                                          │</span><br><span class="line">├───────────────┼──────────────────────────────────────────────────────────────┤</span><br><span class="line">│ Package       │ minimist                                                     │</span><br><span class="line">├───────────────┼──────────────────────────────────────────────────────────────┤</span><br><span class="line">│ Patched in    │ &gt;=0.2.1 &lt;1.0.0 || &gt;=1.2.3                                    │</span><br><span class="line">├───────────────┼──────────────────────────────────────────────────────────────┤</span><br><span class="line">│ Dependency of │ hexo                                                         │</span><br><span class="line">├───────────────┼──────────────────────────────────────────────────────────────┤</span><br><span class="line">│ Path          │ hexo &gt; swig-templates &gt; optimist &gt; minimist                  │</span><br><span class="line">├───────────────┼──────────────────────────────────────────────────────────────┤</span><br><span class="line">│ More info     │ https://npmjs.com/advisories/1179                            │</span><br><span class="line">└───────────────┴──────────────────────────────────────────────────────────────┘</span><br><span class="line">found 1 low severity vulnerability in 253 scanned packages</span><br><span class="line">  1 vulnerability requires manual review. See the full report for details.</span><br></pre></td></tr></table></figure>
+
+<p><strong>原因</strong></p>
+<p>呼び出し元のoptimistが、minimistの古いバージョンに依存しているため</p>
+<p><strong>対策</strong></p>
+<p>npm auditを実行して解決方法が存在するか確認する。</p>
+<p>１．脆弱性に関する解決方法が公開されている場合、解決のためのコマンドが表示されるため、コマンドを実行して解決する（例）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">=== npm audit security report ===</span><br><span class="line"># Run  npm update lodash --depth 2  to resolve 1 vulnerability</span><br></pre></td></tr></table></figure>
+
+<p>２．解決方法がない場合、npm audit fixを実行してセキュリティパッチを当てるか、それでも解決しない低度の脆弱性であれば、そのままにしておく。</p>
+<p>そもそも未知の脆弱性が存在する場合もあり、npm auditで解決できるとは限らない。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install -g yarn</span><br><span class="line">npm install yarn</span><br><span class="line">yarn install</span><br><span class="line">yarn upgrade</span><br></pre></td></tr></table></figure>
+
+</div>
+
+
+                    </main>
+                </div>
+                <div class="col-12 col-lg-4 mx-0 my-0 px-0">
+                    <aside class="card mx-2 my-2 sidebar-sticky">
+    <div class="row mx-3 mt-3 mb-0">
+    </div>
+    
+        <section class="row mx-auto mx-3 mt-3 mb-0">
+    <div class="col-12">
+        <p class="h5 text-center">目次</p>
+    </div>
+    <div class="col-12">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#npm-Node-js%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">npm - Node.jsのパッケージ管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-js%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E7%AE%A1%E7%90%86-npm"><span class="toc-number">2.</span> <span class="toc-text">Node.jsのパッケージ管理 npm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3npm%E5%AE%9F%E8%A1%8C%E6%99%82%E3%81%AE%E8%AD%A6%E5%91%8A%E3%83%BB%E3%82%A8%E3%83%A9%E3%83%BC"><span class="toc-number">3.</span> <span class="toc-text">コマンドラインnpm実行時の警告・エラー</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-npm-install-%E2%80%9Cnpm-WARN-optional-SKIPPING-OPTIONAL-DEPENDENCY-fsevents%E2%80%A6%E2%80%9D"><span class="toc-number">3.1.</span> <span class="toc-text">1. npm install - “npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents…”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-npm-install-npm-fund%E3%81%AE%E8%A1%A8%E7%A4%BA%E3%81%AE%E6%84%8F%E5%91%B3%E3%81%AF%EF%BC%9F"><span class="toc-number">3.2.</span> <span class="toc-text">2. npm install - npm fundの表示の意味は？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-npm-install-%E2%80%9Cfound-1-low-severity-vulnerability%E2%80%9D"><span class="toc-number">3.3.</span> <span class="toc-text">3. npm install - “found 1 low severity vulnerability”</span></a></li></ol></li></ol>
+    <div
+</section>
+
+        <div class="mx-3 my-0">
+    <hr>
+</div>
+
+    
+    <div class="h6 col-12 text-center mb-3">
+        <a href="#">
+            <i class="fa fa-long-arrow-up mr-2"></i>トップに戻る
+        </a>
+    </div>
+</aside>
+
+                </div>
+            </div>
+		</div>
+		<!-- Footer -->
+<div class="container">
+    <footer class="text-center mt-5 py-5">
+        
+
+    <a href="https://twitter.com/?lang=en" target="_blank"><i class="fa fa-twitter mx-2"></i></a>
+
+
+
+    <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube mx-2"></i></a>
+
+
+    <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram mx-2"></i></a>
+
+
+
+
+
+
+
+
+        <p class="h6 text-center mx-0 mt-5 mb-0">
+              Contents and Hexo theme, Copyright 2020 - by HamKaz
+        </p>
+    </footer>
+</div>
+
+		<!-- Include Javascript -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  </body>
+</html>

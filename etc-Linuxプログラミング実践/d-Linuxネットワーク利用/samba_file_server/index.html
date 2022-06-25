@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    
+
+    <title>Linux Debian10でSambaによる小規模ファイルサーバーを構築する - hamkazの技術ブログ</title>
+
+    
+        <meta name="description" content="Linux Debian10にSambaをインストールしてファイルサーバーを構成しました。">
+    
+
+    
+        <meta name="author" content="HamKaz">
+    
+
+    
+        <meta property="og:title" content="Linux Debian10でSambaによる小規模ファイルサーバーを構築する"/>
+    
+
+    <meta property="og:site_name" content="hamkazの技術ブログ"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="/css/styles.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <div class="container">
+    <header class="navbar navbar-light pt-3">
+        <a class="navbar-brand navbar-toggleable-sm" href="/">
+            <span class="title d-none d-sm-block">hamkazの技術ブログ</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center mt-3 mt-md-0" id="navbarCollapse">
+            <span class="title d-block d-sm-none">hamkazの技術ブログ</span>
+            <ul class="navbar-nav ml-auto my-auto">
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                
+            </ul>
+            <hr class="hidden-md-up" />
+        </div>
+    </header>
+</div>
+
+        <div class="container">
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-0 my-0 px-0">
+                    <main class="card mx-2 my-2 sidebar-sticky">
+                        <div class="row mx-3 mt-3 mb-0">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 mx-auto mx-0 my-0 px-0">
+        <div class="flex">
+    <div class="flex-item">
+        <figure class="image-trim mb-0">
+            
+                
+                    <img src="/images/programming-environment.jpg" alt="Linux Debian10でSambaによる小規模ファイルサーバーを構築する">
+                
+            
+        </figure>
+    </div>
+</div>
+    </div>
+</div>
+<div class="row mx-auto mx-3 my-0">
+    
+
+
+    <p class="h4 text-center text-md-left mx-0 mt-3 mb-0">
+        Linux Debian10でSambaによる小規模ファイルサーバーを構築する
+    </p>
+
+
+</div>
+<div class="row mx-auto mx-3 mt-2 mb-0">
+    
+    <p class="date mx-3 my-0">
+        2020-05-15
+    </p>
+
+
+</div>
+<nav class="row mx-auto mx-3 mt-2 mb-0">
+    
+
+<ul class="mx-0 my-0">
+    <li>
+        
+            <a href="/" target="_self">
+                <i class="fa fa-home"></i>
+                home
+            </a>
+        
+            <a href="/categories/etc-Linuxプログラミング実践/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                etc-Linuxプログラミング実践
+            </a>
+        
+            <a href="/categories/etc-Linuxプログラミング実践/d-Linuxネットワーク利用/" target="_self">
+                <i class="fa fa-folder-open"></i>
+                d-Linuxネットワーク利用
+            </a>
+        
+    </li>
+</ul>
+
+</nav>
+
+<div class="mx-3 my-0">
+    <hr>
+</div>
+
+
+<div class="mx-3 my-0">
+    <h2 id="多数のOSからファイル共有できるようにするには？"><a href="#多数のOSからファイル共有できるようにするには？" class="headerlink" title="多数のOSからファイル共有できるようにするには？"></a>多数のOSからファイル共有できるようにするには？</h2><p>複数台の異なるPCでファイル共有をしようと考えたとき、ファイルサーバーもしくはNASが必要となります。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://ja.wikipedia.org/wiki/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A2%E3%82%BF%E3%83%83%E3%83%81%E3%83%88%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8">ネットワークアタッチストレージ(NAS)</a></p>
+</blockquote>
+<p>LAN上にNASを構築しようとした場合、NAS専用機を購入するのではなく、自前でNASを構築するという選択をしました。</p>
+<p>まずNAS専用OSとしてOpenMediaVaultなどを検討しましたが、要求されるハードスペックが高いなど手軽に実現できないことが分かりました。</p>
+<p>またファイル共有プロトコルの問題もありました。各OSごとにいろいろなファイル共有プロトコルが用意されており、WindowsではSMB、Mac OSではAFP、LinuxではNFSなどがあることが分かりました。</p>
+<p>今回、いろいろなOS間、すなわちクロスプラットフォームでファイル共有を実現するため、Linuxをサーバー、Windows・Mac OS・Linuxをクライアントとし、Sambaを使ってファイル共有機能を実現する方法について調べてみました。</p>
+<h2 id="Linuxだけでファイル共有を考えた場合"><a href="#Linuxだけでファイル共有を考えた場合" class="headerlink" title="Linuxだけでファイル共有を考えた場合"></a>Linuxだけでファイル共有を考えた場合</h2><p>Linuxではファイル共有プロトコルとしてFTP、NFS、SSH(rcp)を使います。またWindowsではCIFSかSMB、Mac OSではAFPかSMBというファイル共有プロトコルを使用します。</p>
+<p>ではWindows、Mac OS、Linuxの全てのOSからファイル共有を実現したい場合は、サーバーをどこに置いてどのように構成したら良いでしょうか？</p>
+<p>Windows ServerやWindows Storage Serverを使う方法、LinuxでSambaを構成する方法があることが分かりました。個人用途で手軽に実現しようとした場合、Linux上のSambaが選択肢に挙げられます。</p>
+<p>LinuxにおけるSambaは、WindowsのSMBというWindowsネットワークの機能をLinux上に実装した（機能をコピーして実現した）もので、ファイル共有、プリンタ共有、ドメインコントロール、ドメイン参加などが実現できます。</p>
+<p>今回は、Linuxマシンをファイルサーバーにするため、Linux上にSambaサーバーを構成、Linux、Mac、Window機をSambaクライアントにし、小規模なネットワークでのファイル共有を実現しました。</p>
+<h2 id="Linux上にSambaサーバーを構成する。"><a href="#Linux上にSambaサーバーを構成する。" class="headerlink" title="Linux上にSambaサーバーを構成する。"></a>Linux上にSambaサーバーを構成する。</h2><h3 id="1-インストール"><a href="#1-インストール" class="headerlink" title="1. インストール"></a>1. インストール</h3><p>Samba Serverをインストールします。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://wiki.debian.org/SambaServerSimple">Install Samba Server</a></p>
+</blockquote>
+<h3 id="2-Sambaデーモン"><a href="#2-Sambaデーモン" class="headerlink" title="2. Sambaデーモン"></a>2. Sambaデーモン</h3><p>Samba Serverを常駐プロセス（デーモン化）します。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://ohzeki.hatenablog.com/entry/20160916/1473998215">ubuntuでSambaの再起動</a></p>
+</blockquote>
+<h3 id="3-Sambaにおけるユーザー管理"><a href="#3-Sambaにおけるユーザー管理" class="headerlink" title="3. Sambaにおけるユーザー管理"></a>3. Sambaにおけるユーザー管理</h3><p>Sambaにおけるユーザー管理において、ログインユーザーはLinuxユーザーとSambaユーザーで同じとなる。しかしパスワードは<strong>LinuxのログインパスワードとSambaのログインパスワードで異なる</strong>点を理解する必要があります。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/362852/samba-fails-to-add-a-user-entry-how-do-i-fix-this">Samba fails to add a user entry, how do I fix this?</a></p>
+</blockquote>
+<p><strong>Sambaユーザーを作成します</strong></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://eng-entrance.com/linux-user-add">実は簡単！Linuxユーザの作成方法と追加方法</a></p>
+</blockquote>
+<p><strong>Sambaパスワードを設定します</strong></p>
+<p>pdbeditで作成します。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.samba.gr.jp/project/translation/3.5/htmldocs/manpages-3/pdbedit.8.html">pdbedit — SAM データベース (Samba ユーザーのデータベース) を管理する</a></p>
+</blockquote>
+<p>Sambaユーザーの一覧は、次のようにして確認します。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://april.fool.jp/blogs/2014/07/23/%E3%83%A1%E3%83%A2-samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6/">SAMBAのパスワードファイルに登録されているユーザ一覧を表示するには</a></p>
+</blockquote>
+<h2 id="Linux上にSambaクライアント構築"><a href="#Linux上にSambaクライアント構築" class="headerlink" title="Linux上にSambaクライアント構築"></a>Linux上にSambaクライアント構築</h2><h3 id="smbclientのインストール"><a href="#smbclientのインストール" class="headerlink" title="smbclientのインストール"></a>smbclientのインストール</h3><p>Samba Serverをインストールします。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://wiki.debian.org/SambaServerSimple">Install Samba Client</a></p>
+</blockquote>
+<h3 id="smbclientの使い方"><a href="#smbclientの使い方" class="headerlink" title="smbclientの使い方"></a>smbclientの使い方</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="http://leo.ec.t.kanazawa-u.ac.jp/manuals/samba-2.2.7b-ja-1.0/ja-htmldocs/smbclient.1.html">smbclient</a></p>
+</blockquote>
+<h3 id="Windowsからの接続"><a href="#Windowsからの接続" class="headerlink" title="Windowsからの接続"></a>Windowsからの接続</h3><h3 id="Macからの接続"><a href="#Macからの接続" class="headerlink" title="Macからの接続"></a>Macからの接続</h3><h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2>
+</div>
+
+
+                    </main>
+                </div>
+                <div class="col-12 col-lg-4 mx-0 my-0 px-0">
+                    <aside class="card mx-2 my-2 sidebar-sticky">
+    <div class="row mx-3 mt-3 mb-0">
+    </div>
+    
+        <section class="row mx-auto mx-3 mt-3 mb-0">
+    <div class="col-12">
+        <p class="h5 text-center">目次</p>
+    </div>
+    <div class="col-12">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%95%B0%E3%81%AEOS%E3%81%8B%E3%82%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">多数のOSからファイル共有できるようにするには？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E3%81%A0%E3%81%91%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%92%E8%80%83%E3%81%88%E3%81%9F%E5%A0%B4%E5%90%88"><span class="toc-number">2.</span> <span class="toc-text">Linuxだけでファイル共有を考えた場合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E4%B8%8A%E3%81%ABSamba%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%A7%8B%E6%88%90%E3%81%99%E3%82%8B%E3%80%82"><span class="toc-number">3.</span> <span class="toc-text">Linux上にSambaサーバーを構成する。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-number">3.1.</span> <span class="toc-text">1. インストール</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Samba%E3%83%87%E3%83%BC%E3%83%A2%E3%83%B3"><span class="toc-number">3.2.</span> <span class="toc-text">2. Sambaデーモン</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Samba%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E7%AE%A1%E7%90%86"><span class="toc-number">3.3.</span> <span class="toc-text">3. Sambaにおけるユーザー管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E4%B8%8A%E3%81%ABSamba%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E6%A7%8B%E7%AF%89"><span class="toc-number">4.</span> <span class="toc-text">Linux上にSambaクライアント構築</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#smbclient%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><span class="toc-number">4.1.</span> <span class="toc-text">smbclientのインストール</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#smbclient%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9"><span class="toc-number">4.2.</span> <span class="toc-text">smbclientの使い方</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows%E3%81%8B%E3%82%89%E3%81%AE%E6%8E%A5%E7%B6%9A"><span class="toc-number">4.3.</span> <span class="toc-text">Windowsからの接続</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mac%E3%81%8B%E3%82%89%E3%81%AE%E6%8E%A5%E7%B6%9A"><span class="toc-number">4.4.</span> <span class="toc-text">Macからの接続</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%81%BE%E3%81%A8%E3%82%81"><span class="toc-number">5.</span> <span class="toc-text">まとめ</span></a></li></ol>
+    <div
+</section>
+
+        <div class="mx-3 my-0">
+    <hr>
+</div>
+
+    
+    <div class="h6 col-12 text-center mb-3">
+        <a href="#">
+            <i class="fa fa-long-arrow-up mr-2"></i>トップに戻る
+        </a>
+    </div>
+</aside>
+
+                </div>
+            </div>
+		</div>
+		<!-- Footer -->
+<div class="container">
+    <footer class="text-center mt-5 py-5">
+        
+
+    <a href="https://twitter.com/?lang=en" target="_blank"><i class="fa fa-twitter mx-2"></i></a>
+
+
+
+    <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube mx-2"></i></a>
+
+
+    <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram mx-2"></i></a>
+
+
+
+
+
+
+
+
+        <p class="h6 text-center mx-0 mt-5 mb-0">
+              Contents and Hexo theme, Copyright 2020 - by HamKaz
+        </p>
+    </footer>
+</div>
+
+		<!-- Include Javascript -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  </body>
+</html>
